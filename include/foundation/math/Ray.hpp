@@ -52,11 +52,11 @@ namespace toxico {
         constexpr Ray<N> unit() const;
 
         /**
-         * @brief Gets the end point of this ray.
+         * @brief Gets a location along the ray.
          * 
-         * @return The end point of the ray.
+         * @param t The "time" traveled along the ray.
          */
-        constexpr Vector<fp_type, N> end() const;
+        constexpr Vector<fp_type, N> at(fp_type t) const;
     };
 
     using Ray2 = Ray<2>;
