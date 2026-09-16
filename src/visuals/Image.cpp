@@ -14,11 +14,11 @@
 #include <cmath>
 
 namespace toxico {
-    Image::Image(Size size, GridOrder order) noexcept
-        : pixels_(size, order) {}
+    Image::Image(Size size) noexcept
+        : pixels_(size, GridOrder::RowMajor) {}
 
-    Image Image::transparent(Size size, GridOrder order) noexcept {
-        Image image(size, order);
+    Image Image::transparent(Size size) noexcept {
+        Image image(size);
         image.fill(Color4::transparent());
         return image;
     }
@@ -65,10 +65,6 @@ namespace toxico {
 
     void Image::fill(Color4 color) noexcept {
         pixels_.fill(color);
-    }
-
-    GridOrder Image::order() const noexcept {
-        return pixels_.order();
     }
 
     std::span<const Color4> Image::data() const noexcept {

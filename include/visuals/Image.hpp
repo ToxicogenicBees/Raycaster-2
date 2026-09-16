@@ -29,18 +29,16 @@ namespace toxico {
          * @param begin The beginning of a list of pixels.
          * @param end The end of a list of pixels.
          * @param size The size of the image.
-         * @param order The grid order for this image (default is row-major).
          */
         template<std::input_iterator InputIter>
-        Image(InputIter begin, InputIter end, Size size, GridOrder order = GridOrder::RowMajor);
+        Image(InputIter begin, InputIter end, Size size);
 
         /**
          * @brief Constructor.
          * 
          * @param size The size of the image (default is 0x0).
-         * @param order The grid order for this image (default is row-major).
          */
-        Image(Size size = Size(0, 0), GridOrder order = GridOrder::RowMajor) noexcept;
+        Image(Size size = Size(0, 0)) noexcept;
 
         /**
          * @brief Gets a fully transparent image.
@@ -48,7 +46,7 @@ namespace toxico {
          * @param size The size of the image.
          * @param order The grid order for this image (default is row-major).
          */
-        static Image transparent(Size size, GridOrder order = GridOrder::RowMajor) noexcept;
+        static Image transparent(Size size) noexcept;
 
         /**
          * @brief Linearly indexes a pixel.
@@ -110,13 +108,6 @@ namespace toxico {
          * @param color The desired color.
          */
         void fill(Color4 color) noexcept;
-
-        /**
-         * @brief Gets the grid order of the image.
-         * 
-         * @return The grid order of the image.
-         */
-        GridOrder order() const noexcept;
 
         /**
          * @brief Gets the data of this image.

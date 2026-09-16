@@ -6,6 +6,6 @@
 
 namespace toxico {
     template<std::input_iterator InputIter>
-    Image::Image(InputIter begin, InputIter end, Size size, GridOrder order)
-        : pixels_(begin, end, size, order) {}
+    Image::Image(InputIter begin, InputIter end, Size size)
+        : pixels_(begin, end, size, GridOrder::RowMajor) {}
 }
