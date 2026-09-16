@@ -5,7 +5,7 @@
 #include "foundation/utility/fp_type.hpp"
 #include "scene/camera/OrthographicCamera.hpp"
 #include "scene/geometry/SphereGeometry.hpp"
-#include "scene/objects/Object.hpp"
+#include "scene/Object.hpp"
 #include "io/image/ImageWriter.hpp"
 #include "visuals/Image.hpp"
 

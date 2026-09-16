@@ -4,7 +4,7 @@
     Implementation of a renderable object.
 */
 
-#include "scene/objects/Object.hpp"
+#include "scene/Object.hpp"
 #include <cstddef>
 #include <array>
 
