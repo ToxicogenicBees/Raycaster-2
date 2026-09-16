@@ -86,23 +86,23 @@ namespace toxico {
         /**
          * @brief Positionally indexes the grid.
          * 
-         * @param x The desired x-position.
-         * @param y The desired y-position.
+         * @param x The desired row position.
+         * @param y The desired column position.
          * @return The desired value.
          */
-        const T& operator()(std::size_t x, std::size_t y) const;
-        T& operator()(std::size_t x, std::size_t y);
+        const T& operator()(std::size_t row, std::size_t col) const;
+        T& operator()(std::size_t row, std::size_t col);
 
         /**
          * @brief Positionally indexes the grid.
          *        Throws an out-of-range exception if the position is invalid.
          * 
-         * @param x The desired x-position.
-         * @param y The desired y-position.
+         * @param x The desired row position.
+         * @param y The desired column position.
          * @return The desired value.
          */
-        const T& at(std::size_t x, std::size_t y) const;
-        T& at(std::size_t x, std::size_t y);
+        const T& at(std::size_t row, std::size_t col) const;
+        T& at(std::size_t row, std::size_t col);
 
         /**
          * @brief Fills the grid with the desired value.

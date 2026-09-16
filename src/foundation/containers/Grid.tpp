@@ -9,11 +9,11 @@
 namespace {
     using namespace toxico;
 
-    std::size_t linIndex(std::size_t x, std::size_t y, Size size, GridOrder order) {
+    std::size_t linIndex(std::size_t row, std::size_t col, Size size, GridOrder order) {
         if (order == GridOrder::ColumnMajor)
-            return y + (x * size.height);
+            return row + (col * size.width);
         else
-            return x + (y * size.width);
+            return col + (row * size.height);
     }
 }
 
@@ -74,32 +74,32 @@ namespace toxico {
     }
 
     template<typename T>
-    const T& Grid<T>::operator()(std::size_t x, std::size_t y) const {
-        auto index = linIndex(x, y, size_, order_);
+    const T& Grid<T>::operator()(std::size_t row, std::size_t col) const {
+        auto index = linIndex(row, col, size_, order_);
         return data_[index];
     }
 
     template<typename T>
-    T& Grid<T>::operator()(std::size_t x, std::size_t y) {
-        auto index = linIndex(x, y, size_, order_);
+    T& Grid<T>::operator()(std::size_t row, std::size_t col) {
+        auto index = linIndex(row, col, size_, order_);
         return data_[index];
     }
 
     template<typename T>
-    const T& Grid<T>::at(std::size_t x, std::size_t y) const {
-        if (x >= size_.width || y >= size_.height)
+    const T& Grid<T>::at(std::size_t row, std::size_t col) const {
+        if (row >= size_.width || col >= size_.height)
             throw std::out_of_range("Accessed grid out of bounds");
 
-        auto index = linIndex(x, y, size_, order_);
+        auto index = linIndex(row, col, size_, order_);
         return data_[index];
     }
 
     template<typename T>
-    T& Grid<T>::at(std::size_t x, std::size_t y) {
-        if (x >= size_.width || y >= size_.height)
+    T& Grid<T>::at(std::size_t row, std::size_t col) {
+        if (row >= size_.width || col >= size_.height)
             throw std::out_of_range("Accessed grid out of bounds");
 
-        auto index = linIndex(x, y, size_, order_);
+        auto index = linIndex(row, col, size_, order_);
         return data_[index];
     }
 
