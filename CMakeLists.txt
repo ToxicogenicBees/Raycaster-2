@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(KidTextureEditor)
+project(Raycaster)
 
 set(EXE_NAME_VAR render)
 
