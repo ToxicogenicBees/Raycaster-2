@@ -32,7 +32,7 @@ namespace toxico {
     std::optional<Intersection> Object::intersection(const Ray3& world_ray, fp_type t_min, fp_type t_max) const {
         // Fetch intersection in local space
         const Ray3 local_ray = transform_.toLocal(world_ray);
-        auto local_hit = geometry_.intersection(local_ray, t_min, t_max);
+        auto local_hit = geometry_.intersection(local_ray);
 
         // No local-space intersection -> no world-space intersection
         if (!local_hit)
@@ -45,6 +45,10 @@ namespace toxico {
         const Vector3 offset = world_hit.point - world_ray.origin;
         world_hit.t = offset.dot(world_ray.direction)
             / world_ray.direction.dot(world_ray.direction);
+
+        // Validate world-space time constraints
+        if (world_hit.t < t_min || world_hit.t > t_max)
+            return std::nullopt;
 
         // Return the world-space intersection
         return world_hit;

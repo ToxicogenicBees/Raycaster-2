@@ -10,7 +10,7 @@ namespace toxico {
     SphereGeometry::SphereGeometry() noexcept
         : bounds_(-Vector3::one(), Vector3::one()) {}
 
-    std::optional<Intersection> SphereGeometry::intersection(const Ray3& local_ray, fp_type t_min, fp_type t_max) const {
+    std::optional<Intersection> SphereGeometry::intersection(const Ray3& local_ray) const {
         // https://kylehalladay.com/blog/tutorial/math/2013/12/24/Ray-Sphere-Intersection.html
 
         // Ensure there is a possible intersection within the sphere
@@ -27,11 +27,9 @@ namespace toxico {
         const fp_type t2 = tc + offset;
 
         // Determine the appropriate time of collision, if one exists
-        fp_type t = t1;
-        if (t < t_min || t > t_max)
-            t = t2;
-        if (t < t_min || t > t_max)
+        if (t1 < 0 && t2 < 0)
             return std::nullopt;
+        const auto t = (t1 < t2 ? t1 : t2);
 
         // Return the intersection
         auto hit_point = local_ray.at(t);
