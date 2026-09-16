@@ -32,6 +32,11 @@ namespace {
 }
 
 namespace toxico {
+    Transform::Transform()
+        : matrix_(Mat4x4::identity()),
+          inverse_(matrix_)
+    {}
+    
     void Transform::translate(const Vector3& translation) noexcept {
         auto transform = Mat4x4::identity();
         transform(0, 3) = translation.x;

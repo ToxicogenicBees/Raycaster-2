@@ -13,15 +13,6 @@
 #include <optional>
 
 namespace toxico {
-    enum class RotationOrder {
-        XYZ,
-        XZY,
-        YXZ,
-        YZX,
-        ZXY,
-        ZYX
-    };
-
     class Transform {
     private:
         Mat4x4 matrix_;
@@ -36,6 +27,11 @@ namespace toxico {
             ZXY,
             ZYX
         };
+
+        /**
+         * @brief Constructor.
+         */
+        Transform();
 
         /**
          * @brief Applies a translation to the transform.
