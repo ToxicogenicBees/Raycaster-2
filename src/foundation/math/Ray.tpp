@@ -30,6 +30,7 @@ namespace toxico {
         };
     }
 
+    template<std::size_t N>
     constexpr Vector<fp_type, N> Ray<N>::at(fp_type t) const {
         return origin + t * direction;
     }
