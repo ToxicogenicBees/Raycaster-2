@@ -269,7 +269,7 @@ namespace toxico {
     constexpr auto operator*(S s, const Vector<T, N>& v) {
         auto result = v;
         for (auto& val : result)
-            val /= s;
+            val *= s;
         return result;
     }
 }
