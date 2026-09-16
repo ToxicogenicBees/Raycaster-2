@@ -9,7 +9,6 @@
 #include "foundation/containers/Grid.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
-#include <string>
 
 namespace toxico {
     class Mat4x4 {
@@ -18,6 +17,9 @@ namespace toxico {
 
     public:
         static const std::size_t size = 4;
+
+        using const_iterator = Grid<fp_type>::const_iterator;
+        using iterator = Grid<fp_type>::iterator;
         
         /**
          * @brief Constructor.
@@ -138,6 +140,18 @@ namespace toxico {
          * @return The inverse of this matrix.
          */
         Mat4x4 inverse() const;
+
+        /**
+         * @brief Gets the desired iterator for this matrix's data.
+         * 
+         * @return The desired iterator.
+         */
+        const_iterator cbegin() const noexcept;
+        const_iterator begin() const noexcept;
+        iterator begin() noexcept;
+        const_iterator cend() const noexcept;
+        const_iterator end() const noexcept;
+        iterator end() noexcept;
     };
 
     /**

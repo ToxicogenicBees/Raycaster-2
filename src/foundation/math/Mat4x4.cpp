@@ -7,6 +7,7 @@
 #include "foundation/math/Mat4x4.hpp"
 #include "foundation/geometry/Size.hpp"
 #include <stdexcept>
+#include <limits>
 #include <cmath>
 
 namespace toxico {
@@ -36,7 +37,7 @@ namespace toxico {
         try {
             return data_.at(row, col);
         }
-        catch(...) {
+        catch(const std::out_of_range&) {
             throw std::out_of_range("Accessed matrix out of range");
         }
     }
@@ -45,7 +46,7 @@ namespace toxico {
         try {
             return data_.at(row, col);
         }
-        catch(...) {
+        catch(const std::out_of_range&) {
             throw std::out_of_range("Accessed matrix out of range");
         }
     }
@@ -74,7 +75,7 @@ namespace toxico {
         Mat4x4 result;
         for (std::size_t i = 0; i < Mat4x4::size; ++i) {
             for (std::size_t j = 0; j < Mat4x4::size; ++j)
-                result(i, j) = (*this)(i, j);
+                result(i, j) = (*this)(j, i);
         }
         return result;
     }
@@ -133,5 +134,29 @@ namespace toxico {
         }
 
         return result;
+    }
+
+    Mat4x4::const_iterator Mat4x4::cbegin() const noexcept {
+        return data_.cbegin();
+    }
+
+    Mat4x4::const_iterator Mat4x4::begin() const noexcept {
+        return data_.begin();
+    }
+
+    Mat4x4::iterator Mat4x4::begin() noexcept {
+        return data_.begin();
+    }
+
+    Mat4x4::const_iterator Mat4x4::cend() const noexcept {
+        return data_.cend();
+    }
+
+    Mat4x4::const_iterator Mat4x4::end() const noexcept {
+        return data_.end();
+    }
+
+    Mat4x4::iterator Mat4x4::end() noexcept {
+        return data_.end();
     }
 }

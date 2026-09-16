@@ -43,7 +43,7 @@ namespace toxico {
     requires std::is_arithmetic_v<T>
     Mat4x4 operator*(T s, const Mat4x4& mat) {
         Mat4x4 result(mat);
-        for (auto& val : result.data_)
+        for (auto& val : result)
             val *= s;
         return result;
     }
