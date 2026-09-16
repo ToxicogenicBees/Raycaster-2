@@ -5,12 +5,14 @@
 */
 
 #include "scene/geometry/SphereGeometry.hpp"
+#include "foundation/utility/fp_type.hpp"
+#include "foundation/math/Vector.hpp"
 
 namespace toxico {
     SphereGeometry::SphereGeometry() noexcept
         : bounds_(-Vector3::one(), Vector3::one()) {}
 
-    std::optional<Intersection> SphereGeometry::intersection(const Ray3& local_ray) const {
+    std::optional<LocalIntersection> SphereGeometry::intersection(const Ray3& local_ray) const {
         // https://kylehalladay.com/blog/tutorial/math/2013/12/24/Ray-Sphere-Intersection.html
 
         // Ensure there is a possible intersection within the sphere
@@ -33,7 +35,7 @@ namespace toxico {
 
         // Return the intersection
         auto hit_point = local_ray.at(t);
-        return Intersection{
+        return LocalIntersection{
             .point = hit_point,
             .normal = hit_point.normal(),
             .t = t
