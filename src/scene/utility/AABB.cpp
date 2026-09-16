@@ -58,4 +58,12 @@ namespace toxico {
 
         return true;
     }
+
+    const Vector3& AABB::lowerBound() const noexcept {
+        return min_;
+    }
+
+    const Vector3& AABB::upperBound() const noexcept {
+        return max_;
+    }
 }

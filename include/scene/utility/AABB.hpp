@@ -62,6 +62,20 @@ namespace toxico {
             fp_type t_min = std::numeric_limits<fp_type>::min(),
             fp_type t_max = std::numeric_limits<fp_type>::max()
         ) const noexcept;
+
+        /**
+         * @brief Gets the lower bound for this AABB.
+         * 
+         * @return The lower bound.
+         */
+        const Vector3& lowerBound() const noexcept;
+
+        /**
+         * @brief Gets the upper bound for this AABB.
+         * 
+         * @return The upper bound.
+         */
+        const Vector3& upperBound() const noexcept;
     };
 }
 
