@@ -11,9 +11,9 @@ namespace {
 
     std::size_t linIndex(std::size_t row, std::size_t col, Size size, GridOrder order) {
         if (order == GridOrder::ColumnMajor)
-            return row + (col * size.width);
+            return row + (col * size.height);
         else
-            return col + (row * size.height);
+            return col + (row * size.width);
     }
 }
 
@@ -87,7 +87,7 @@ namespace toxico {
 
     template<typename T>
     const T& Grid<T>::at(std::size_t row, std::size_t col) const {
-        if (row >= size_.width || col >= size_.height)
+        if (row >= size_.height || col >= size_.width)
             throw std::out_of_range("Accessed grid out of bounds");
 
         auto index = linIndex(row, col, size_, order_);
@@ -96,7 +96,7 @@ namespace toxico {
 
     template<typename T>
     T& Grid<T>::at(std::size_t row, std::size_t col) {
-        if (row >= size_.width || col >= size_.height)
+        if (row >= size_.height || col >= size_.width)
             throw std::out_of_range("Accessed grid out of bounds");
 
         auto index = linIndex(row, col, size_, order_);

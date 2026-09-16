@@ -30,12 +30,13 @@ namespace toxico {
 
         /**
          * @brief Constructor.
-         *        Throws an invalid-arguments exception if the data and size don't match.
          * 
          * @param begin The beginning of a list of data.
          * @param end The end of a list of data.
          * @param size The size of the data.
          * @param order The grid order (default is row-major)
+         * 
+         * Throws an invalid-arguments exception if the data and size don't match.
          */
         template<std::input_iterator InputIter>
         Grid(InputIter begin, InputIter end, Size size, GridOrder order = GridOrder::RowMajor);
@@ -58,7 +59,7 @@ namespace toxico {
         Grid(Size size, GridOrder order = GridOrder::RowMajor) noexcept;
 
         /**
-         * @brief Constructlr.
+         * @brief Constructor.
          * 
          * @param order The grid order (default is row-major)
          */
@@ -75,10 +76,11 @@ namespace toxico {
 
         /**
          * @brief Linearly indexes the grid.
-         *        Throws an out-of-range exception if the index is invalid.
          * 
          * @param index The linear tile index.
          * @return The desired value.
+         * 
+         * Throws an out-of-range exception if the index is invalid.
          */
         const T& at(std::size_t index) const;
         T& at(std::size_t index);
@@ -95,11 +97,12 @@ namespace toxico {
 
         /**
          * @brief Positionally indexes the grid.
-         *        Throws an out-of-range exception if the position is invalid.
          * 
          * @param x The desired row position.
          * @param y The desired column position.
          * @return The desired value.
+         * 
+         * Throws an out-of-range exception if the position is invalid.
          */
         const T& at(std::size_t row, std::size_t col) const;
         T& at(std::size_t row, std::size_t col);
