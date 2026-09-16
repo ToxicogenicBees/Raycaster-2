@@ -8,13 +8,5 @@
 
 namespace toxico {
     CameraBase::CameraBase(const Transform& transform) noexcept
-        : transform_(transform) {}
-
-    const Transform& CameraBase::transform() const noexcept {
-        return transform_;
-    }
-    
-    Transform& CameraBase::transform() noexcept {
-        return transform_;
-    }
+        : transform(transform) {}
 }

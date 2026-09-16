@@ -6,17 +6,15 @@
 
 #pragma once
 
-#include "scene/utility/Transform.hpp"
+#include "foundation/geometry/Transform.hpp"
 #include "foundation/geometry/Size.hpp"
 #include "foundation/math/Vector.hpp"
 #include "foundation/math/Ray.hpp"
 
 namespace toxico {
-    class CameraBase {
-    private:
-        Transform transform_;
+    struct CameraBase {
+        Transform transform;
 
-    public:
         /**
          * @brief Constructor.
          * 
@@ -28,14 +26,6 @@ namespace toxico {
          * @brief Constructor.
          */
         CameraBase() noexcept = default;
-
-        /**
-         * @brief Gets the transform for this camera.
-         * 
-         * @return The transform for this camera.
-         */
-        const Transform& transform() const noexcept;
-        Transform& transform() noexcept;
 
         /**
          * @brief Generates a ray through this camera.
