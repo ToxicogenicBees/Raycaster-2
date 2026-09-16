@@ -32,56 +32,6 @@ namespace toxico {
         static Mat4x4 identity();
 
         /**
-         * @brief Creates the desired 2D translation matrix.
-         * 
-         * @param translation The desired translation offset.
-         * @return The desired 2D transformation matrix.
-         */
-        static Mat4x4 translation(const Vector3& translation);
-
-        /**
-         * @brief Creates the desired 2D rotation matrix.
-         * 
-         * @param rotation The desired X rotation offset (in radians).
-         * @return The desired 2D transformation matrix.
-         */
-        static Mat4x4 rotationX(fp_type rotation);
-
-        /**
-         * @brief Creates the desired 2D rotation matrix.
-         * 
-         * @param rotation The desired Y rotation offset (in radians).
-         * @return The desired 2D transformation matrix.
-         */
-        static Mat4x4 rotationY(fp_type rotation);
-
-        /**
-         * @brief Creates the desired 2D rotation matrix.
-         * 
-         * @param rotation The desired Z rotation offset (in radians).
-         * @return The desired 2D transformation matrix.
-         */
-        static Mat4x4 rotationZ(fp_type rotation);
-
-        /**
-         * @brief Creates the desired 2D rotation matrix.
-         * 
-         * @param rot_x The desired X rotation offset (in radians).
-         * @param rot_y The desired Y rotation offset (in radians).
-         * @param rot_z The desired Z rotation offset (in radians).
-         * @return The desired 2D transformation matrix.
-         */
-        static Mat4x4 rotationXYZ(fp_type rot_x, fp_type rot_y,fp_type rot_z) noexcept;
-
-        /**
-         * @brief Creates the desired 2D scaling matrix.
-         * 
-         * @param scale The desired scale offset.
-         * @return The desired 2D transformation matrix.
-         */
-        static Mat4x4 scale(const Vector3& scale) noexcept;
-
-        /**
          * @brief Access an element in the matrix.
          * 
          * @param row The desired row.
@@ -176,20 +126,18 @@ namespace toxico {
         Mat4x4& operator/=(T s);
 
         /**
-         * @brief Applies this transformation to a homogeneous point in space.
+         * @brief Gets the transpose of this matrix.
          * 
-         * @param point The homogeneous point in space being transformed.
-         * @return The transformed point.
+         * @return The transpose of this matrix.
          */
-        Vector4 apply(const Vector4& point) const;
+        Mat4x4 transpose() const;
 
         /**
-         * @brief Applies this transformation to a point in space.
+         * @brief Gets the inverse of this matrix.
          * 
-         * @param point The point in space being transformed.
-         * @return The transformed point.
+         * @return The inverse of this matrix.
          */
-        Vector3 apply(const Vector3& point) const;
+        Mat4x4 inverse() const;
     };
 
     /**
