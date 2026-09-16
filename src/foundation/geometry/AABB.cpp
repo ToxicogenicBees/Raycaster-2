@@ -1,10 +1,10 @@
 /*
-    AABB.hpp
+    AABB.cpp
 
-    Declaration of an axis-alligned bounding box.
+    Implementation of an axis-alligned bounding box.
 */
 
-#include "scene/utility/AABB.hpp"
+#include "foundation/geometry/AABB.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <limits>

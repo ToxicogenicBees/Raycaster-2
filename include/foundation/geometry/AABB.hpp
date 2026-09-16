@@ -79,4 +79,4 @@ namespace toxico {
     };
 }
 
-#include "scene/utility/AABB.tpp"
+#include "foundation/geometry/AABB.tpp"
