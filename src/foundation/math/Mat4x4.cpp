@@ -70,6 +70,24 @@ namespace toxico {
         *this = *this * other;
         return *this;
     }
+    
+    Vector4 Mat4x4::row(std::size_t index) const {
+        return Vector4{
+            at(index, 0),
+            at(index, 1),
+            at(index, 2),
+            at(index, 3),
+        };
+    }
+
+    Vector4 Mat4x4::column(std::size_t index) const {
+        return Vector4{
+            at(0, index),
+            at(1, index),
+            at(2, index),
+            at(3, index),
+        };
+    }
 
     Mat4x4 Mat4x4::transpose() const {
         Mat4x4 result;

@@ -128,6 +128,26 @@ namespace toxico {
         Mat4x4& operator/=(T s);
 
         /**
+         * @brief Gets the desired row of this matrix.
+         * 
+         * @param index The index for the desired row.
+         * @return The desired row.
+         * 
+         * Throws an exception if the index is out of range.
+         */
+        Vector4 row(std::size_t index) const;
+
+        /**
+         * @brief Gets the desired column of this matrix.
+         * 
+         * @param index The index for the desired column.
+         * @return The desired column.
+         * 
+         * Throws an exception if the index is out of range.
+         */
+        Vector4 column(std::size_t index) const;
+
+        /**
          * @brief Gets the transpose of this matrix.
          * 
          * @return The transpose of this matrix.
