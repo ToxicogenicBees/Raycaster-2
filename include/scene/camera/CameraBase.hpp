@@ -43,7 +43,7 @@ namespace toxico {
          * @param location The (sub)pixel location the ray starts from.
          * @param render_size The size of the rendered scene, in pixels.
          */
-        virtual Ray3 generateRay(const Vector2& location, Size& render_size) const = 0;
+        virtual Ray3 generateRay(const Vector2& location, const Size& render_size) const = 0;
 
         /**
          * @brief Destructor.

@@ -16,10 +16,10 @@
 namespace toxico {
     class OrthographicCamera final : public CameraBase {
     private:
-        inline static const Vector3 local_direction = -Vector3::zAxis();
         fp_type view_height_;
-
+    
     public:
+        inline static const Vector3 local_direction = -Vector3::zAxis();
 
         /**
          * @brief Constructor.
@@ -42,7 +42,7 @@ namespace toxico {
          * @param location The (sub)pixel location the ray starts from.
          * @param render_size The size of the rendered scene, in pixels.
          */
-        Ray3 generateRay(const Vector2& location, Size& render_size) const final;
+        Ray3 generateRay(const Vector2& location, const Size& render_size) const final;
 
         /**
          * @brief Gets the view height of this camera.

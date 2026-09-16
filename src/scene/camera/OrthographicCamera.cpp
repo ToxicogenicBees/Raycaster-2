@@ -15,7 +15,7 @@ namespace toxico {
     OrthographicCamera::OrthographicCamera(fp_type view_height) noexcept
         : view_height_(view_height) {}
 
-    Ray3 OrthographicCamera::generateRay(const Vector2& location, Size& render_size) const {
+    Ray3 OrthographicCamera::generateRay(const Vector2& location, const Size& render_size) const {
         // Fetch view width
         fp_type aspect_ratio = static_cast<fp_type>(render_size.width) / static_cast<fp_type>(render_size.height);
         const fp_type view_width = view_height_ * aspect_ratio;
