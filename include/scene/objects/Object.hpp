@@ -10,6 +10,7 @@
 #include "scene/utility/Intersection.hpp"
 #include "scene/utility/Transform.hpp"
 #include "scene/utility/AABB.hpp"
+#include <limits>
 
 namespace toxico {
     class Object {
@@ -52,11 +53,15 @@ namespace toxico {
          * @brief Gets the collision between a ray and this object.
          * 
          * @param world_ray A ray in world-space.
-         * @param t_min The minimum "time" traveled along the ray.
-         * @param t_max The maximum "time" traveled along the ray.
+         * @param t_min The minimum time traveled along the ray.
+         * @param t_max The maximum time traveled along the ray.
          * @return Information about the collision, or std::nullopt if there was no collision.
          */
-        std::optional<Intersection> intersection(const Ray3& world_ray, fp_type t_min, fp_type t_max) const;
+        std::optional<Intersection> intersection(
+            const Ray3& world_ray,
+            fp_type t_min = 0.0,
+            fp_type t_max = std::numeric_limits<fp_type>::infinity()
+        ) const;
 
         /**
          * @brief Gets an AABB for this object in world-space.
