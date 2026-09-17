@@ -11,7 +11,7 @@
 #include <cmath>
 
 namespace toxico {
-    std::optional<LocalIntersection> PlaneGeometry::intersection(const Ray3& local_ray) const {
+    std::optional<Intersection> PlaneGeometry::intersection(const Ray3& local_ray) const {
         // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html#SECTION00023500000000000000
     
         const Vector3 normal = Vector3::yAxis();
@@ -27,7 +27,7 @@ namespace toxico {
             return std::nullopt;
 
         // Return the intersection
-        return LocalIntersection{
+        return Intersection{
             .point = local_ray.at(t),
             .normal = (n_dot_v > 0 ? -normal : normal),
             .t = t

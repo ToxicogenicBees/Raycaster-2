@@ -12,7 +12,7 @@
 #include "scene/query/Intersection.hpp"
 #include "foundation/math/Ray.hpp"
 
-namespace toxico {
+namespace toxico::intersection {
     /**
      * @brief Gets the intersection between a ray and a transformed geometry, within a given time range.
      * 
@@ -24,7 +24,7 @@ namespace toxico {
      * @return The result of the intersection, or std::nullopt if no intersection occured.
      */
     std::optional<Intersection> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max);
-
+    
     /**
      * @brief Gets the intersection between a ray and a transformed geometry.
      * 

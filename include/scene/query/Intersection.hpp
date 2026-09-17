@@ -1,7 +1,7 @@
 /*
     Intersection.hpp
 
-    Declaration of a struct containing info of the intersection between an object and a ray in world space.
+    Declaration of a struct containing info of the intersection between a transformed geometry and a ray.
 */
 
 #pragma once

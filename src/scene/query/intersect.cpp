@@ -6,7 +6,7 @@
 
 #include "scene/query/intersect.hpp"
 
-namespace toxico {
+namespace toxico::intersection {
     std::optional<Intersection> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max) {
         // Fetch the intersection
         auto result = intersect(geometry, transform, ray);
