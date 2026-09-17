@@ -13,6 +13,7 @@
 #include "io/image/ImageWriter.hpp"
 #include "visuals/Image.hpp"
 
+
 int main() {
     // Create a scene
     Scene scene;
