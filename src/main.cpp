@@ -8,17 +8,17 @@
 #include "scene/geometry/utility/GeometryPrimitives.hpp"
 #include "foundation/geometry/Size.hpp"
 #include "rendering/camera/PerspectiveCamera.hpp"
-#include "rendering/camera/OrthographicCamera.hpp"
 #include "rendering/render.hpp"
 #include "scene/Scene.hpp"
 #include "io/image/ImageWriter.hpp"
 #include "visuals/Image.hpp"
 
+
 int main() {
     // Create a scene
     Scene scene;
 
-    // Add plane to the scene
+    // Add a plane to the scene
     auto& plane = scene.createObject(GeometryPrimitives::Plane);
     plane.color = Color3(0, 1, 1);
 
@@ -34,7 +34,7 @@ int main() {
     camera.transform.lookAt(sphere.transform.position());
 
     // Render the image
-    auto image = rendering::render(Size{1720, 1080}, scene, camera);
+    auto image = rendering::render(Size{1280, 720}, scene, camera);
 
     // Write the image to a file
     ImageWriter writer;
