@@ -1,5 +1,5 @@
 /*
-    OrthographicCamera.hpp
+    PerspectiveCamera.hpp
 
     Declaration of an orthographic camera.
 */
@@ -14,9 +14,9 @@
 #include "foundation/math/Ray.hpp"
 
 namespace toxico {
-    class OrthographicCamera final : CameraBase {
+    class PerspectiveCamera final : public CameraBase {
     private:
-        fp_type view_height_;
+        fp_type field_of_view_;
 
     public:
         /**
@@ -25,14 +25,14 @@ namespace toxico {
          * @param transform A transform for this camera.
          * @param view_height The view height for this camera.
          */
-        OrthographicCamera(const Transform& transform, fp_type view_height) noexcept;
+        PerspectiveCamera(const Transform& transform, fp_type view_height) noexcept;
 
         /**
          * @brief Constructor.
          * 
          * @param view_height The view height for this camera.
          */
-        OrthographicCamera(fp_type view_height) noexcept;
+        PerspectiveCamera(fp_type view_height) noexcept;
 
         /**
          * @brief Generates a ray through this camera.
@@ -47,6 +47,6 @@ namespace toxico {
          * 
          * @return The field of view of this camera.
          */
-        fp_type viewHeight() const noexcept;
+        fp_type fieldOfView() const noexcept;
     };
 }
