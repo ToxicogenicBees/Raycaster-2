@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "scene/camera/CameraBase.hpp"
+#include "rendering/camera/CameraBase.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/geometry/Transform.hpp"
 #include "foundation/geometry/Size.hpp"

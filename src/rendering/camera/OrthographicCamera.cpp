@@ -4,7 +4,7 @@
     Implementation of an orthographic camera.
 */
 
-#include "scene/camera/OrthographicCamera.hpp"
+#include "rendering/camera/OrthographicCamera.hpp"
 
 namespace toxico {
     OrthographicCamera::OrthographicCamera(const Transform& transform, fp_type view_height) noexcept
