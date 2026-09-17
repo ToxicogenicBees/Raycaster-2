@@ -27,13 +27,13 @@ int main() {
     sphere.color = Color3(1, 0, 0);
 
     // Create a perspective camera pointing at the sphere.
-    fp_type fov_90_deg = 90.0 * 3.14159 / 180.0;
+    const fp_type fov_90_deg = 90.0 * 3.14159 / 180.0;
     PerspectiveCamera camera(fov_90_deg);
-    camera.transform.translate({-2, 0.25, 0});
+    camera.transform.translate({-2, 0.5, 0});
     camera.transform.lookAt(sphere.transform.position());
 
     // Render the image
-    auto image = rendering::render(Size{1280, 720}, scene, camera);
+    const auto image = rendering::render(Size{1280, 720}, scene, camera);
 
     // Write the image to a file
     ImageWriter writer;
