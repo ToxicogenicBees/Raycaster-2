@@ -11,14 +11,20 @@
 #include "scene/geometry/GeometryRegistry.hpp"
 #include "scene/query/SceneIntersection.hpp"
 #include "foundation/containers/OwningVector.hpp"
+#include "scene/light/AmbientLight.hpp"
+#include "scene/light/LightBase.hpp"
 #include "scene/object/Object.hpp"
 #include <optional>
 #include <concepts>
 #include <vector>
 
+// @TODO: turn scene into a struct of registries (geometry, light, object) and optional items (ambient light)
+
 namespace toxico {
     class Scene {
     private:
+        std::optional<AmbientLight> ambience_;
+        std::vector<LightBase> lights_;
         OwningVector<Object> objects_;
         GeometryRegistry geometries_;
 
