@@ -13,28 +13,33 @@ namespace toxico {
         : bounds_(-Vector3::one(), Vector3::one()) {}
 
     std::optional<Intersection> SphereGeometry::intersection(const Ray3& local_ray) const {
-        // https://kylehalladay.com/blog/tutorial/math/2013/12/24/Ray-Sphere-Intersection.html
+        // Calculate coefficients of quadratic
+        const Vector3 oc = local_ray.origin;
+        const fp_type a = local_ray.direction.dot(local_ray.direction);
+        const fp_type b = 2.0 * oc.dot(local_ray.direction);
+        const fp_type c = oc.dot(oc) - 1.0;
 
-        // Ensure there is a possible intersection within the sphere
-        const Vector3 L = -local_ray.origin;
-        const fp_type tc = L.dot(local_ray.direction);
-        const fp_type radius_squared = 1.0;
-        const fp_type distance_squared = L.dot(L) - tc * tc;
-        if (distance_squared > radius_squared)
+        // Validate a solution exists
+        const fp_type discriminant = b * b - 4.0 * a * c;
+        if (discriminant < 0)
             return std::nullopt;
 
-        // Find the two possible "times" of collision
-        const fp_type offset = std::sqrt(radius_squared - distance_squared);
-        const fp_type t1 = tc - offset;
-        const fp_type t2 = tc + offset;
+        // Solve for roots
+        const fp_type sqrt_discriminant = std::sqrt(discriminant);
+        const fp_type t1 = (-b - sqrt_discriminant) / (2.0 * a);
+        const fp_type t2 = (-b + sqrt_discriminant) / (2.0 * a);
 
-        // Determine the appropriate time of collision, if one exists
-        if (t1 < 0 && t2 < 0)
+        // Figure out which root is correct
+        fp_type t;
+        if (t1 >= 0)
+            t = t1;
+        else if (t2 >= 0)
+            t = t2;
+        else
             return std::nullopt;
-        const auto t = (t1 < t2 ? t1 : t2);
 
-        // Return the intersection
-        auto hit_point = local_ray.at(t);
+        // Return intersection data
+        const Vector3 hit_point = local_ray.at(t);
         return Intersection{
             .point = hit_point,
             .normal = hit_point.normal(),
