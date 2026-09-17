@@ -28,14 +28,8 @@ namespace toxico {
          * 
          * @param value The value being inserted.
          */
-        H insert(const T& value);
-
-        /**
-         * @brief Inserts a value into the array.
-         * 
-         * @param value The value being inserted.
-         */
         H insert(std::unique_ptr<T> value);
+        H insert(const T& value);
 
         /**
          * @brief Emplaces a value into the array.
@@ -59,13 +53,6 @@ namespace toxico {
          * @return The resolved pointer.
          */
         const T* resolve(H handle) const;
-        
-        /**
-         * @brief Resolve a handle.
-         * 
-         * @param handle The handle being resolved.
-         * @return The resolved pointer.
-         */
         T* resolve(H handle);
 
         /**
