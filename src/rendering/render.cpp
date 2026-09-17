@@ -21,8 +21,8 @@ namespace toxico::rendering {
             for (std::size_t col = 0; col < size.width; ++col) {
                 // Get the pixel being currently viewed through
                 const auto pixel = Vector2{
-                    static_cast<fp_type>(col),
-                    static_cast<fp_type>(row)
+                    static_cast<fp_type>(col) + fp_type{0.5},
+                    static_cast<fp_type>(row) + fp_type{0.5}
                 };
 
                 // Cast a ray through this pixel and check for an intersection
@@ -32,13 +32,9 @@ namespace toxico::rendering {
                 // Write a pixel if an intersection occurred
                 if (result) {
                     // @TODO: Implement proper phong reflection model
-                    fp_type intensity = result->t / (1.0 + result->t);
-                    auto obj_color = result->object.color;
+                    const auto obj_color = result->object.color;
                     image.at(row, col) = Color4(
-                        obj_color.r * intensity,
-                        obj_color.g * intensity,
-                        obj_color.b * intensity,
-                        1.0
+                        obj_color.r, obj_color.g, obj_color.b, 1.0
                     );
                 }
             }
