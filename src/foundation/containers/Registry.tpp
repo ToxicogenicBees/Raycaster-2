@@ -44,7 +44,7 @@ namespace toxico {
     template<typename Base, typename Index>
     template<typename Item, typename... Ts>
     requires RegistryItem<Item, Base>
-    typename Registry<Base, Index>::handle_type Registry<Base, Index>::emplace(Ts&& ...args) {
+    std::pair<typename Registry<Base, Index>::handle_type, typename Registry<Base, Index>::value_type&> Registry<Base, Index>::emplace(Ts&& ...args) {
         // Create a new sparse entry
         const auto index = dense_.size();
         const auto handle = sparse_.insert(index);
@@ -56,7 +56,10 @@ namespace toxico {
         });
 
         // Return the sparse handle
-        return handle;
+        return {
+            handle,
+            *(dense_.back().item.get())
+        };
     }
 
     template<typename Base, typename Index>

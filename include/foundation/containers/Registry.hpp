@@ -12,6 +12,7 @@
 #include "foundation/containers/DenseVector.hpp"
 #include "foundation/containers/SlotArray.hpp"
 #include "foundation/concepts/RegistryItem.hpp"
+#include <utility>
 #include <cstdint>
 
 namespace toxico {
@@ -42,11 +43,12 @@ namespace toxico {
          * @brief Emplaces an item into the registry.
          * 
          * @param args The constructor arguments for the emplaced item.
-         * @return A handle to the emplaced item.
+         * @return A pair containing a handle to the stored item,
+         *         and a reference to the created item.
          */
         template<typename Item = value_type, typename... Ts>
         requires RegistryItem<Item, Base>
-        handle_type emplace(Ts&& ...args);
+        std::pair<handle_type, value_type&> emplace(Ts&& ...args);
 
         /**
          * @brief Removes an item from the registry.
