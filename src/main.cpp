@@ -4,14 +4,16 @@
     An example of rendering a simple scene.
 */
 
-#include "foundation/utility/fp_type.hpp"
 #include "scene/geometry/utility/GeometryPrimitives.hpp"
-#include "foundation/geometry/Size.hpp"
 #include "rendering/camera/PerspectiveCamera.hpp"
-#include "rendering/render.hpp"
-#include "scene/Scene.hpp"
+#include "rendering/shaders/FlatShader.hpp"
+#include "foundation/utility/fp_type.hpp"
+#include "foundation/geometry/Size.hpp"
 #include "io/image/ImageWriter.hpp"
+#include "rendering/Renderer.hpp"
+#include "visuals/Color4.hpp"
 #include "visuals/Image.hpp"
+#include "scene/Scene.hpp"
 
 int main() {
     // Create a scene
@@ -33,7 +35,14 @@ int main() {
     camera.transform.lookAt(sphere.transform.position());
 
     // Render the image
-    const auto image = rendering::render(Size{1280, 720}, scene, camera);
+    Renderer renderer;
+    const auto image = renderer.render(
+        Size{1280, 720},
+        scene, 
+        camera,
+        FlatShader{},
+        Color4::transparent()
+    );
 
     // Write the image to a file
     ImageWriter writer;
