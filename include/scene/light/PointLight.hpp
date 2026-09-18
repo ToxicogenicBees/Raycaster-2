@@ -7,31 +7,24 @@
 #pragma once
 
 #include "scene/light/LightBase.hpp"
+#include "scene/light/utility/LightProperties.hpp"
 #include "scene/light/utility/LightSample.hpp"
-#include "foundation/utility/fp_type.hpp"
-#include "visuals/Color3.hpp"
+#include "foundation/math/Vector.hpp"
 
 namespace toxico {
     struct PointLight final : LightBase {
         /**
          * @brief Constructor.
          * 
-         * @param color The color of the light source.
-         * @param intensity The intensity of the light source.
+         * @param properties The properties of this light.
          */
-        PointLight(const Color3& color, fp_type intensity);
-
-        /**
-         * @brief Constructor.
-         * 
-         * @param color The color of the light source.
-         */
-        PointLight(const Color3& color);
+        PointLight(const LightProperties& properties);
 
         /**
          * @brief Constructor.
          */
         PointLight() = default;
+
 
         /**
          * @brief Gets a sample of this light at a given point.

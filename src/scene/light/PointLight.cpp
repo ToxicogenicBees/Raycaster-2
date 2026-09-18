@@ -5,20 +5,21 @@
 */
 
 #include "scene/light/PointLight.hpp"
+#include "foundation/utility/fp_type.hpp"
 
 namespace toxico {
-    PointLight::PointLight(const Color3& color, fp_type intensity)
-        : LightBase(color, intensity) {}
-
-    PointLight::PointLight(const Color3& color)
-        : LightBase(color) {}
+    PointLight::PointLight(const LightProperties& properties)
+        : LightBase(properties) {}
 
     LightSample PointLight::sample(const Vector3& position) const noexcept {
-        auto offset = position - transform.position();
+        const auto offset = transform.position() - position;
+        const auto distance = offset.magnitude();
+        const fp_type attenuation = 1.0 / properties.attenuation.evaluate(distance);
+
         return LightSample{
             .direction = offset.normal(),
-            .color = color,
-            .distance = offset.magnitude()
+            .color = properties.color * (properties.intensity * attenuation),
+            .distance = distance
         };
     }
 }
