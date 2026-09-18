@@ -11,7 +11,7 @@
 
 namespace toxico {
     struct AmbientLight {
-        Color3 color;
-        fp_type intensity;
+        Color3 color = Color3(1.0, 1.0, 1.0);
+        fp_type intensity = 0.0;
     };
 }
