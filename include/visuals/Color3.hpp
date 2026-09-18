@@ -1,7 +1,7 @@
 /*
     Color3.hpp
 
-    Declaration of simple RGBA color structure
+    Declaration of simple RGB color structure.
 */
 
 #pragma once
@@ -73,5 +73,57 @@ namespace toxico {
          */
         fp_type at(std::size_t channel) const;
         fp_type& at(std::size_t channel);
+
+        /**
+         * @brief Multiplies this color by a scalar.
+         * 
+         * @param scalar The scalar the color is being multiplied by.
+         * @return The modified color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color3& operator*=(T scalar) noexcept;
+
+        /**
+         * @brief Multiplies a color by a scalar.
+         * 
+         * @param scalar The scalar the color is being multiplied by.
+         * @return The resulting color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color3 operator*(T scalar) const noexcept;
+
+        /**
+         * @brief Divides this color by a scalar.
+         * 
+         * @param scalar The scalar the color is being divided by.
+         * @return The modified color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color3& operator/=(T scalar) noexcept;
+
+        /**
+         * @brief Divides a color by a scalar.
+         * 
+         * @param scalar The scalar the color is being divided by.
+         * @return The resulting color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color3 operator/(T scalar) const noexcept;
     };
+
+    /**
+     * @brief Multiplies a color by a scalar.
+     * 
+     * @param scalar The scalar the color is being multiplied by.
+     * @return The resulting color.
+     */
+    template<typename T>
+    requires std::is_arithmetic_v<T>
+    Color3 operator*(T scalar, const Color3& color) noexcept;
 }
+
+#include "visuals/Color3.tpp"

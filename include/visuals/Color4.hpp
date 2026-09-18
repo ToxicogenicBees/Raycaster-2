@@ -1,12 +1,13 @@
 /*
     Color4.hpp
 
-    Declaration of simple RGBA color structure
+    Declaration of simple RGBA color structure.
 */
 
 #pragma once
 
 #include "foundation/utility/fp_type.hpp"
+#include <type_traits>
 #include <cstdint>
 #include <array>
 
@@ -84,5 +85,57 @@ namespace toxico {
          */
         fp_type at(std::size_t channel) const;
         fp_type& at(std::size_t channel);
+
+        /**
+         * @brief Multiplies this color's RGB channels by a scalar.
+         * 
+         * @param scalar The scalar the color is being multiplied by.
+         * @return The modified color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color4& operator*=(T scalar) noexcept;
+
+        /**
+         * @brief Multiplies a color's RGB channels by a scalar.
+         * 
+         * @param scalar The scalar the color is being multiplied by.
+         * @return The resulting color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color4 operator*(T scalar) const noexcept;
+
+        /**
+         * @brief Divides this color's RGB channels by a scalar.
+         * 
+         * @param scalar The scalar the color is being divided by.
+         * @return The modified color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color4& operator/=(T scalar) noexcept;
+
+        /**
+         * @brief Divides a color's RGB channels by a scalar.
+         * 
+         * @param scalar The scalar the color is being divided by.
+         * @return The resulting color.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Color4 operator/(T scalar) const noexcept;
     };
+
+    /**
+     * @brief Multiplies a color's RGB channels by a scalar.
+     * 
+     * @param scalar The scalar the color is being multiplied by.
+     * @return The resulting color.
+     */
+    template<typename T>
+    requires std::is_arithmetic_v<T>
+    Color4 operator*(T scalar, const Color4& color) noexcept;
 }
+
+#include "visuals/Color4.tpp"
