@@ -126,5 +126,3 @@ namespace toxico {
         return current_;
     }
 }
-
-#include "foundation/containers/iterators/OwningVectorIterator.tpp"
