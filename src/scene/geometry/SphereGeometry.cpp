@@ -6,6 +6,7 @@
 
 #include "scene/geometry/SphereGeometry.hpp"
 #include "foundation/utility/fp_type.hpp"
+#include "foundation/math/Quadratic.hpp"
 #include "foundation/math/Vector.hpp"
 
 namespace toxico {
@@ -13,21 +14,21 @@ namespace toxico {
         : bounds_(-Vector3::one(), Vector3::one()) {}
 
     std::optional<Intersection> SphereGeometry::intersection(const Ray3& local_ray) const {
-        // Calculate coefficients of quadratic
+        // Calculate coefficients of the intersection quadratic
         const Vector3 oc = local_ray.origin;
         const fp_type a = local_ray.direction.dot(local_ray.direction);
         const fp_type b = 2.0 * oc.dot(local_ray.direction);
         const fp_type c = oc.dot(oc) - 1.0;
+        const Quadratic quad(a, b, c);
 
-        // Validate a solution exists
-        const fp_type discriminant = b * b - 4.0 * a * c;
-        if (discriminant < 0)
+        // Validate a real solution exists
+        if (!quad.realRoots())
             return std::nullopt;
 
-        // Solve for roots
-        const fp_type sqrt_discriminant = std::sqrt(discriminant);
-        const fp_type t1 = (-b - sqrt_discriminant) / (2.0 * a);
-        const fp_type t2 = (-b + sqrt_discriminant) / (2.0 * a);
+        // Solve for the roots
+        const auto [z1, z2] = quad.roots();
+        fp_type t1 = z1.real();
+        fp_type t2 = z2.real();
 
         // Figure out which root is correct
         fp_type t;
