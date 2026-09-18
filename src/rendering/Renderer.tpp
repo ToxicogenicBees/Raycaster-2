@@ -6,7 +6,6 @@
 
 #include "foundation/math/Vector.hpp"
 #include <cstdint>
-#include <iostream>
 
 namespace toxico {
     template<Shader S>
