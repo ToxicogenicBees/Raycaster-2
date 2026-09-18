@@ -6,54 +6,23 @@
 
 #pragma once
 
-#include "scene/geometry/utility/GeometryPrimitives.hpp"
 #include "scene/geometry/utility/GeometryHandle.hpp"
-#include "scene/geometry/GeometryRegistry.hpp"
-#include "scene/query/SceneIntersection.hpp"
-#include "foundation/containers/OwningVector.hpp"
+#include "scene/object/utility/ObjectHandle.hpp"
+#include "scene/light/utility/LightHandle.hpp"
+#include "foundation/containers/Registry.hpp"
+#include "scene/geometry/interfaces/IGeometry.hpp"
 #include "scene/light/AmbientLight.hpp"
 #include "scene/light/LightBase.hpp"
 #include "scene/object/Object.hpp"
+#include "scene/query/SceneIntersection.hpp"
 #include <optional>
-#include <concepts>
-#include <vector>
-
-// @TODO: turn scene into a struct of registries (geometry, light, object) and optional items (ambient light)
 
 namespace toxico {
-    class Scene {
-    private:
-        std::optional<AmbientLight> ambience_;
-        std::vector<LightBase> lights_;
-        OwningVector<Object> objects_;
-        GeometryRegistry geometries_;
-
-    public:
-        /**
-         * @brief Creates a geometry and adds it to the scene.
-         * 
-         * @param args The constructor arguments for this geometry.
-         * @return A handle to this geometry.
-         */
-        template<std::derived_from<IGeometry> Geometry, typename... Ts>
-        GeometryHandle createGeometry(Ts&& ...args);
-
-        /**
-         * @brief Gets a primitive geometry.
-         * 
-         * @param type The primitive geometry type.
-         * @return A handle to this primitive geometry.
-         */
-        GeometryHandle getPrimitive(GeometryPrimitives type);
-
-        /**
-         * @brief Creates an object and adds it to the scene.
-         * 
-         * @param geometry The geometry type for this object
-         * @return A reference to the created object.
-         */
-        Object& createObject(GeometryPrimitives geometry);
-        Object& createObject(GeometryHandle geometry);
+    struct Scene {
+        Registry<IGeometry> geometries;
+        Registry<LightBase> lights;
+        Registry<Object> objects;
+        AmbientLight ambience;
 
         /**
          * @brief Gets the closest intersection between this scene and a ray.
@@ -74,5 +43,3 @@ namespace toxico {
         std::optional<SceneIntersection> intersect(const Ray3& ray) const;
     };
 }
-
-#include "scene/Scene.tpp"
