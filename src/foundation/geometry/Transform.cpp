@@ -39,19 +39,32 @@ namespace toxico {
     const Vector3 Transform::local_right = Vector3::xAxis();
     const Vector3 Transform::local_up = Vector3::yAxis();
 
-    void Transform::wipeCached_() const noexcept {
-        matrix_.reset();
-        inverse_.reset();
+    void Transform::update_() {
+        // Form translation matrix
+        auto translation = Mat4x4::identity();
+        translation(0, 3) = position_.x;
+        translation(1, 3) = position_.y;
+        translation(2, 3) = position_.z;
+
+        // Form scaling matrix
+        auto scaling = Mat4x4::identity();
+        scaling(0, 0) = scale_.x;
+        scaling(1, 1) = scale_.y;
+        scaling(2, 2) = scale_.z;
+
+        // Update cached matrices
+        matrix_ = translation * scaling * rotation_;
+        inverse_ = matrix_.inverse();
     }
 
     void Transform::translate(const Vector3& translation) noexcept {
         position_ += translation;
-        wipeCached_();
+        update_();
     }
 
     void Transform::translateLocal(const Vector3& translation) noexcept {
         position_ += applyPoint(rotation_, translation);
-        wipeCached_();
+        update_();
     }
 
     void Transform::rotateX(fp_type rot_x) noexcept {
@@ -65,7 +78,7 @@ namespace toxico {
         transform(2, 2) = cos;
 
         rotation_ = transform * rotation_;
-        wipeCached_();
+        update_();
     }
 
     void Transform::rotateY(fp_type rot_y) noexcept {
@@ -79,7 +92,7 @@ namespace toxico {
         transform(2, 2) = cos;
 
         rotation_ = transform * rotation_;
-        wipeCached_();
+        update_();
     }
 
     void Transform::rotateZ(fp_type rot_z) noexcept {
@@ -93,7 +106,7 @@ namespace toxico {
         transform(1, 1) = cos;
 
         rotation_ = transform * rotation_;
-        wipeCached_();
+        update_();
     }
 
     void Transform::rotate(const Vector3& rotation, RotationOrder order) noexcept {
@@ -140,12 +153,12 @@ namespace toxico {
         scale_.x *= scale_factor.x;
         scale_.y *= scale_factor.y;
         scale_.z *= scale_factor.z;
-        wipeCached_();
+        update_();
     }
 
     void Transform::scale(fp_type scale_factor) noexcept {
         scale_ *= scale_factor;
-        wipeCached_();
+        update_();
     }
 
     void Transform::lookAt(const Vector3& target, const Vector3& up) {
@@ -168,7 +181,7 @@ namespace toxico {
         rotation_(0, 2) = -forward.x;
         rotation_(1, 2) = -forward.y;
         rotation_(2, 2) = -forward.z;
-        wipeCached_();
+        update_();
     }
 
     const Vector3& Transform::position() const noexcept {
@@ -196,18 +209,15 @@ namespace toxico {
     }
 
     Vector3 Transform::toLocalPoint(const Vector3& point) const {
-        update();
-        return applyPoint(inverse_.value(), point);
+        return applyPoint(inverse_, point);
     }
 
     Vector3 Transform::toLocalVector(const Vector3& vector) const {
-        update();
-        return applyVector(inverse_.value(), vector);
+        return applyVector(inverse_, vector);
     }
 
     Vector3 Transform::toLocalNormal(const Vector3& normal) const {
-        update();
-        return applyVector(matrix_->transpose(), normal);
+        return applyVector(matrix_.transpose(), normal);
     }
 
     Ray3 Transform::toLocal(const Ray3& ray) const {
@@ -236,18 +246,15 @@ namespace toxico {
     }
 
     Vector3 Transform::toWorldPoint(const Vector3& point) const {
-        update();
-        return applyPoint(matrix_.value(), point);
+        return applyPoint(matrix_, point);
     }
 
     Vector3 Transform::toWorldVector(const Vector3& vector) const {
-        update();
-        return applyVector(matrix_.value(), vector);
+        return applyVector(matrix_, vector);
     }
 
     Vector3 Transform::toWorldNormal(const Vector3& normal) const {
-        update();
-        return applyVector(inverse_->transpose(), normal);
+        return applyVector(inverse_.transpose(), normal);
     }
 
     Ray3 Transform::toWorld(const Ray3& ray) const {
@@ -273,27 +280,5 @@ namespace toxico {
         for (const auto& corner : corners)
             result.expand(toWorldPoint(corner));
         return result;
-    }
-
-    void Transform::update() const {
-        // Ignore update if the matrices were never wiped
-        if (matrix_ && inverse_)
-            return;
-
-        // Form translation matrix
-        auto translation = Mat4x4::identity();
-        translation(0, 3) = position_.x;
-        translation(1, 3) = position_.y;
-        translation(2, 3) = position_.z;
-
-        // Form scaling matrix
-        auto scaling = Mat4x4::identity();
-        scaling(0, 0) = scale_.x;
-        scaling(1, 1) = scale_.y;
-        scaling(2, 2) = scale_.z;
-
-        // Update cached matrices
-        matrix_ = translation * scaling * rotation_;
-        inverse_ = matrix_->inverse();
     }
 }

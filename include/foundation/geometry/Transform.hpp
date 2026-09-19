@@ -17,8 +17,8 @@ namespace toxico {
     class Transform {
     private:
         // Cached transformations
-        mutable std::optional<Mat4x4> matrix_;
-        mutable std::optional<Mat4x4> inverse_;
+        Mat4x4 matrix_ = Mat4x4::identity();
+        Mat4x4 inverse_ = Mat4x4::identity();
 
         // Transformation values
         Mat4x4 rotation_ = Mat4x4::identity();
@@ -26,14 +26,9 @@ namespace toxico {
         Vector3 scale_ = Vector3::one();
 
         /**
-         * @brief Wipes cached transformations.
-         */
-        void wipeCached_() const noexcept;
-
-        /**
          * @brief Updates cached transformations.
          */
-        void updateCached_() const noexcept;
+        void update_();
 
     public:
         enum class RotationOrder {
@@ -240,10 +235,5 @@ namespace toxico {
          * @return The AABB in local space.
          */
         AABB toWorld(const AABB& ray) const;
-
-        /**
-         * @brief Forces the transform to update it's internal cache.
-         */
-        void update() const;
     };
 }

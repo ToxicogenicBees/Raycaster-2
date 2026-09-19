@@ -14,11 +14,6 @@
 namespace toxico {
     template<Shader S>
     Image Renderer::render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color4& background) {
-        // Update cached transforms
-        for (auto& object : scene.objects)
-            object.transform.update();
-        camera.transform.update();
-
         // Create an image to be rendered to
         Image image(size);
 
