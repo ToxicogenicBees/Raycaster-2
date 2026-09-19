@@ -13,7 +13,6 @@
 namespace toxico {
     struct Color3 {
         static constexpr uint8_t channels = 3;
-
         fp_type r, g, b;
 
         /**
