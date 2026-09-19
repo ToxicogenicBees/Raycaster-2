@@ -69,7 +69,7 @@ namespace toxico {
         return {
             r * other.r,
             g * other.g,
-            b * other.g
+            b * other.b
         };
     }
     
@@ -84,7 +84,7 @@ namespace toxico {
         return {
             r + other.r,
             g + other.g,
-            b + other.g
+            b + other.b
         };
     }
 
@@ -99,7 +99,7 @@ namespace toxico {
         return {
             r - other.r,
             g - other.g,
-            b - other.g
+            b - other.b
         };
     }
 }
