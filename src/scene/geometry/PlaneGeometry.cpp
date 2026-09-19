@@ -11,10 +11,12 @@
 #include <cmath>
 
 namespace toxico {
-    std::optional<Intersection> PlaneGeometry::intersection(const Ray3& local_ray) const {
+    std::optional<GeometryInteraction> PlaneGeometry::intersection(const Ray3& local_ray) const {
         // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html#SECTION00023500000000000000
     
         const Vector3 normal = Vector3::yAxis();
+        const Vector3 tangent = Vector3::xAxis();
+        const Vector3 bitangent = -Vector3::zAxis();
         const fp_type n_dot_v = normal.dot(local_ray.direction);
 
         // Ray is parallel to the plane if n_dot_v is 0. Return invalid intersection.
@@ -27,10 +29,17 @@ namespace toxico {
             return std::nullopt;
 
         // Return the intersection
-        return Intersection{
+        const auto point = local_ray.at(t);
+        return GeometryInteraction{
             .point = local_ray.at(t),
             .normal = (n_dot_v > 0 ? -normal : normal),
-            .t = t
+            .tangent = (n_dot_v > 0 ? -tangent : tangent),
+            .bitangent = (n_dot_v > 0 ? -bitangent : bitangent),
+            .uv = Vector2{
+                std::fmod(point.x, fp_type{1.0}),
+                std::fmod(point.z, fp_type{1.0})
+            },
+            .t = t,
         };
     }
 

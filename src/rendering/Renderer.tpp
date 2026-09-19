@@ -5,6 +5,11 @@
 */
 
 #include "foundation/math/Vector.hpp"
+#include "visuals/filters/ImageFilterSet.hpp"
+#include "visuals/filters/ExposureFilter.hpp"
+#include "visuals/filters/ReinhardFilter.hpp"
+#include "visuals/filters/ClampFilter.hpp"
+#include "visuals/filters/sRGBFilter.hpp"
 #include <cstdint>
 
 namespace toxico {
@@ -38,6 +43,11 @@ namespace toxico {
             }
         }
 
-        return image;
+        // Filter the image
+        ImageFilterSet filters;
+        filters.add<ReinhardFilter>();
+        filters.add<sRGBFilter>();
+
+        return filters.apply(image);
     }
 }

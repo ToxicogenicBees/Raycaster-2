@@ -7,7 +7,7 @@
 #include "scene/query/intersect.hpp"
 
 namespace toxico::intersection {
-    std::optional<Intersection> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max) {
+    std::optional<GeometryInteraction> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max) {
         // Fetch the intersection
         auto result = intersect(geometry, transform, ray);
         if (!result)
@@ -20,7 +20,7 @@ namespace toxico::intersection {
         return result;
     }
 
-    std::optional<Intersection> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray) {
+    std::optional<GeometryInteraction> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray) {
         // Fetch intersection in local space
         const Ray3 local_ray = transform.toLocal(ray);
         auto local_hit = geometry.intersection(local_ray);
@@ -34,9 +34,14 @@ namespace toxico::intersection {
         const Vector3 offset = world_point - ray.origin;
 
         // Convert local-space intersection to world space
-        return Intersection{
+        const auto normal = transform.toWorldNormal(local_hit->normal).normal();
+        const auto tangent = transform.toWorldVector(local_hit->tangent).normal();
+        return GeometryInteraction{
             .point = world_point,
-            .normal = transform.toWorldNormal(local_hit->normal),
+            .normal = transform.toWorldNormal(local_hit->normal).normal(),
+            .tangent = transform.toWorldVector(local_hit->tangent).normal(),
+            .bitangent = transform.toWorldVector(local_hit->bitangent),
+            .uv = local_hit->uv,
             .t = offset.dot(ray.direction) / ray.direction.dot(ray.direction)
         };
     }

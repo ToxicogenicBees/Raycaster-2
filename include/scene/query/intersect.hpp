@@ -9,7 +9,7 @@
 #include "scene/geometry/interfaces/IGeometry.hpp"
 #include "foundation/geometry/Transform.hpp"
 #include "foundation/utility/fp_type.hpp"
-#include "scene/query/Intersection.hpp"
+#include "scene/query/GeometryInteraction.hpp"
 #include "foundation/math/Ray.hpp"
 
 namespace toxico::intersection {
@@ -23,7 +23,7 @@ namespace toxico::intersection {
      * @param t_max The maxium time traveled along the ray.
      * @return The result of the intersection, or std::nullopt if no intersection occured.
      */
-    std::optional<Intersection> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max);
+    std::optional<GeometryInteraction> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max);
     
     /**
      * @brief Gets the intersection between a ray and a transformed geometry.
@@ -33,5 +33,5 @@ namespace toxico::intersection {
      * @param ray A ray in world coordinates.
      * @return The result of the intersection, or std::nullopt if no intersection occured.
      */
-    std::optional<Intersection> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray);
+    std::optional<GeometryInteraction> intersect(const IGeometry& geometry, const Transform& transform, const Ray3& ray);
 }
