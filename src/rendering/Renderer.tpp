@@ -4,15 +4,23 @@
     Template implementation of a scene renderer.
 */
 
+#include "rendering/scheduling/batching/JobBatch.hpp"
 #include "foundation/math/Vector.hpp"
 #include "visuals/filters/ImageFilterSet.hpp"
 #include "visuals/filters/ReinhardFilter.hpp"
 #include "visuals/filters/sRGBFilter.hpp"
 #include <cstdint>
 
+#include <iostream>
+
 namespace toxico {
     template<Shader S>
     Image Renderer::render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color4& background) {
+        // Update cached transforms
+        for (auto& object : scene.objects)
+            object.transform.update();
+        camera.transform.update();
+
         // Create an image to be rendered to
         Image image(size);
 
@@ -32,19 +40,27 @@ namespace toxico {
             image.at(row, col) = color;
         };
 
-        // Run a raycast to populate the image
+        // Create a job batch to process each scan line.
+        JobBatch render_pixels;
         for (std::size_t row = 0; row < size.height; ++row) {
-            for (std::size_t col = 0; col < size.width; ++col) {
-                // Render this pixel.
-                // @TODO: Thread per-pixel rendering.
-                render_pixel(row, col);
-            }
+            render_pixels.push([row, size, render_pixel] {
+                for (std::size_t col = 0; col < size.width; ++col)
+                    render_pixel(row, col);
+            });
         }
+
+        // Process each pixel in the image
+        auto handle = scheduler_.submit(std::move(render_pixels));
+        handle.wait();
+
+        std::clog << "Rendered\n";
 
         // Filter the image
         ImageFilterSet filters;
         filters.add<ReinhardFilter>();
         filters.add<sRGBFilter>();
+
+        std::clog << "Filtered\n";
 
         return filters.apply(image);
     }

@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "rendering/scheduling/JobScheduler.hpp"
 #include "rendering/camera/CameraBase.hpp"
 #include "rendering/concepts/Shader.hpp"
 #include "foundation/geometry/Size.hpp"
@@ -16,7 +17,7 @@
 namespace toxico {
     class Renderer {
     private:
-        // @TODO: Create a job dispatcher to thread per-pixel rendering.
+        JobScheduler scheduler_;
 
     public:
         /**
