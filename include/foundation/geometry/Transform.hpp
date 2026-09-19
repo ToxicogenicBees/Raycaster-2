@@ -45,6 +45,10 @@ namespace toxico {
             ZYX
         };
 
+        static const Vector3 local_forward;
+        static const Vector3 local_right;
+        static const Vector3 local_up;
+
         /**
          * @brief Constructor.
          */

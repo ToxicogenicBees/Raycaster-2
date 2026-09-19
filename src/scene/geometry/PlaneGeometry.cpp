@@ -5,6 +5,7 @@
 */
 
 #include "scene/geometry/PlaneGeometry.hpp"
+#include "foundation/geometry/Transform.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 #include <limits>
@@ -14,9 +15,10 @@ namespace toxico {
     std::optional<GeometryInteraction> PlaneGeometry::intersection(const Ray3& local_ray) const {
         // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html#SECTION00023500000000000000
     
-        const Vector3 normal = Vector3::yAxis();
-        const Vector3 tangent = Vector3::xAxis();       // +U
-        const Vector3 bitangent = -Vector3::zAxis();    // +V
+        Transform transform;
+        const Vector3 normal = Transform::local_up;
+        const Vector3 tangent = Transform::local_right;         // +U
+        const Vector3 bitangent = Transform::local_forward;     // +V
         const fp_type n_dot_v = normal.dot(local_ray.direction);
 
         // Ray is parallel to the plane if n_dot_v is 0. Return invalid intersection.

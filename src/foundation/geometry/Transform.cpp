@@ -35,6 +35,10 @@ namespace {
 }
 
 namespace toxico {
+    const Vector3 Transform::local_forward = -Vector3::zAxis();
+    const Vector3 Transform::local_right = Vector3::xAxis();
+    const Vector3 Transform::local_up = Vector3::yAxis();
+
     void Transform::wipeCached_() const noexcept {
         matrix_.reset();
         inverse_.reset();
@@ -180,15 +184,15 @@ namespace toxico {
     }
 
     Vector3 Transform::forward() const {
-        return applyVector(rotation_, -Vector3::zAxis());
+        return applyVector(rotation_, Transform::local_forward);
     }
 
     Vector3 Transform::right() const {
-        return applyVector(rotation_, Vector3::xAxis());
+        return applyVector(rotation_, Transform::local_right);
     }
 
     Vector3 Transform::up() const {
-        return applyVector(rotation_, Vector3::yAxis());
+        return applyVector(rotation_, Transform::local_up);
     }
 
     Vector3 Transform::toLocalPoint(const Vector3& point) const {
