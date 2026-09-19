@@ -1,7 +1,7 @@
 /*
     ImageMaterial.hpp
 
-    Declaration of a flat-colored material.
+    Declaration of a material fetching its base color from an image.
 */
 
 #pragma once

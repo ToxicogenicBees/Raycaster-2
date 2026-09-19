@@ -14,7 +14,7 @@ namespace toxico {
         // Intersection found, use object color
         if (result) {
             const auto* material = scene.materials.resolve(result->object.material);
-            const auto color = material->sample(result->uv).diffuse;
+            const auto color = material->sample(result->uv).base_color;
             return Color4(color, 1.0);
         }
 
