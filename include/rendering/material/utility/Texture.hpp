@@ -19,6 +19,11 @@ namespace toxico {
             Bilinear
         };
 
+        enum class ColorSpace {
+            sRGB,
+            Linear,
+        };
+
         /**
          * @brief Creates a magenta and black checkered texture.
          * 
@@ -30,10 +35,11 @@ namespace toxico {
          * @brief Constructor.
          * 
          * @param image The desired image for this texture.
+         * @param space The color space of the provided image.
          * @param mode The filtering mode for this texture.
          */
-        Texture(const std::filesystem::path& image, FilterMode mode = FilterMode::Nearest);
-        Texture(const Image& image, FilterMode mode = FilterMode::Nearest);
+        Texture(const std::filesystem::path& image, ColorSpace space, FilterMode mode = FilterMode::Nearest);
+        Texture(const Image& image, ColorSpace space, FilterMode mode = FilterMode::Nearest);
 
         /**
          * @brief Samples this texture at the desired UV position.
