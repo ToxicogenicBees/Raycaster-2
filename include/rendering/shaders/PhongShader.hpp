@@ -11,7 +11,7 @@
 #include "scene/Scene.hpp"
 
 namespace toxico {
-    class PhongShader {
+    struct PhongShader {
         /**
          * @brief Calculates the color for a ray traveling through a scene.
          * 
