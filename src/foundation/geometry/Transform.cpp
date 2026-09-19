@@ -284,9 +284,9 @@ namespace toxico {
 
         // Form scaling matrix
         auto scaling = Mat4x4::identity();
-        scaling(0, 0) = 1.0 / scale_.x;
-        scaling(1, 1) = 1.0 / scale_.y;
-        scaling(2, 2) = 1.0 / scale_.z;
+        scaling(0, 0) = scale_.x;
+        scaling(1, 1) = scale_.y;
+        scaling(2, 2) = scale_.z;
 
         // Update cached matrices
         matrix_ = translation * scaling * rotation_;
