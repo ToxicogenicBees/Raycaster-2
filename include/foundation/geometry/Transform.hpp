@@ -236,5 +236,10 @@ namespace toxico {
          * @return The AABB in local space.
          */
         AABB toWorld(const AABB& ray) const;
+
+        /**
+         * @brief Forces the transform to update it's internal cache.
+         */
+        void update() const;
     };
 }
