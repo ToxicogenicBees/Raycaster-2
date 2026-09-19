@@ -57,4 +57,49 @@ namespace toxico {
 
         return this->*COLOR_CHANNELS[channel];
     }
+
+    Color3& Color3::operator*=(const Color3 other) noexcept {
+        r *= other.r;
+        g *= other.g;
+        b *= other.b;
+        return *this;
+    }
+
+    Color3 Color3::operator*(const Color3 other) const noexcept {
+        return {
+            r * other.r,
+            g * other.g,
+            b * other.g
+        };
+    }
+    
+    Color3& Color3::operator+=(const Color3& other) noexcept {
+        r += other.r;
+        g += other.g;
+        b += other.b;
+        return *this;
+    }
+
+    Color3 Color3::operator+(const Color3& other) const noexcept {
+        return {
+            r + other.r,
+            g + other.g,
+            b + other.g
+        };
+    }
+
+    Color3& Color3::operator-=(const Color3& other) noexcept {
+        r -= other.r;
+        g -= other.g;
+        b -= other.b;
+        return *this;
+    }
+
+    Color3 Color3::operator-(const Color3& other) const noexcept {
+        return {
+            r - other.r,
+            g - other.g,
+            b - other.g
+        };
+    }
 }

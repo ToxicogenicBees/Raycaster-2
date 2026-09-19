@@ -113,6 +113,54 @@ namespace toxico {
         template<typename T>
         requires std::is_arithmetic_v<T>
         Color3 operator/(T scalar) const noexcept;
+
+        /**
+         * @brief Multiplies the channels of another color to this color.
+         * 
+         * @param other Another color.
+         * @return The modified color.
+         */
+        Color3& operator*=(const Color3 other) noexcept;
+
+        /**
+         * @brief Multiplies the channels of two colors together.
+         * 
+         * @param other Another color.
+         * @return The resulting color.
+         */
+        Color3 operator*(const Color3 other) const noexcept;
+
+        /**
+         * @brief Adds the channels of another color to this color.
+         * 
+         * @param other Another color.
+         * @return The modifier color.
+         */
+        Color3& operator+=(const Color3& other) noexcept;
+
+        /**
+         * @brief Adds the channels of two colors together.
+         * 
+         * @param other Another color.
+         * @return The resulting color.
+         */
+        Color3 operator+(const Color3& other) const noexcept;
+
+        /**
+         * @brief Subtracts the channels of another color to this color.
+         * 
+         * @param other Another color.
+         * @return The modifier color.
+         */
+        Color3& operator-=(const Color3& other) noexcept;
+
+        /**
+         * @brief Subtracts the channels of two colors together.
+         * 
+         * @param other Another color.
+         * @return The resulting color.
+         */
+        Color3 operator-(const Color3& other) const noexcept;
     };
 
     /**
