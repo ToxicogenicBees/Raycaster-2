@@ -14,7 +14,7 @@
 #include "foundation/math/Ray.hpp"
 
 namespace toxico {
-    class OrthographicCamera final : CameraBase {
+    class OrthographicCamera final : public CameraBase {
     private:
         fp_type view_height_;
 
