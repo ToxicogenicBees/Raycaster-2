@@ -11,7 +11,7 @@
 #include "scene/Scene.hpp"
 
 namespace toxico {
-    class LambertianShader {
+    struct LambertianShader {
         /**
          * @brief Calculates the color for a ray traveling through a scene.
          * 
