@@ -1,7 +1,7 @@
 /*
-    sRGBFilter.hpp
+    SRGBToLinearFilter.hpp
 
-    Declaration of a filter that converts the given RBG values into their sRGB equivalent.
+    Declaration of a filter that converts the given sRGB values into their linear RGB equivalent.
 */
 
 #pragma once
@@ -12,7 +12,7 @@
 #include <span>
 
 namespace toxico {
-    class sRGBFilter : public IImageFilter {
+    class SRGBToLinearFilter : public IImageFilter {
     public:
         /**
          * @brief Applies the filter to an image.

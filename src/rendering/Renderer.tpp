@@ -8,10 +8,8 @@
 #include "foundation/math/Vector.hpp"
 #include "visuals/filters/ImageFilterSet.hpp"
 #include "visuals/filters/ReinhardFilter.hpp"
-#include "visuals/filters/sRGBFilter.hpp"
+#include "visuals/filters/LinearToSRGBFilter.hpp"
 #include <cstdint>
-
-#include <iostream>
 
 namespace toxico {
     template<Shader S>
@@ -53,14 +51,10 @@ namespace toxico {
         auto handle = scheduler_.submit(std::move(render_pixels));
         handle.wait();
 
-        std::clog << "Rendered\n";
-
         // Filter the image
         ImageFilterSet filters;
         filters.add<ReinhardFilter>();
-        filters.add<sRGBFilter>();
-
-        std::clog << "Filtered\n";
+        filters.add<LinearToSRGBFilter>();
 
         return filters.apply(image);
     }

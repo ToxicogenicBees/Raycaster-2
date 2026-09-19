@@ -1,10 +1,10 @@
 /*
-    sRGBFilter.cpp
+    LinearToSRGBFilter.cpp
 
     Implemenetation of a filter that converts the given RBG values into their sRGB equivalent.
 */
 
-#include "visuals/filters/sRGBFilter.hpp"
+#include "visuals/filters/LinearToSRGBFilter.hpp"
 #include "visuals/Color4.hpp"
 #include <cmath>
 
@@ -17,7 +17,7 @@ namespace {
 }
 
 namespace toxico {
-    Image sRGBFilter::apply(const Image& image) const {
+    Image LinearToSRGBFilter::apply(const Image& image) const {
         Image result = image;
         for (auto& pixel : result) {
             // Modify RGB channels only
@@ -27,7 +27,7 @@ namespace toxico {
         return result;
     }
 
-    std::vector<Image> sRGBFilter::apply(std::span<const Image> images) const {
+    std::vector<Image> LinearToSRGBFilter::apply(std::span<const Image> images) const {
         std::vector<Image> result;
         for (const auto& image : images)
             result.push_back(apply(image));
