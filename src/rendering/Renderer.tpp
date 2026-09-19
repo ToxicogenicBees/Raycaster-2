@@ -6,9 +6,7 @@
 
 #include "foundation/math/Vector.hpp"
 #include "visuals/filters/ImageFilterSet.hpp"
-#include "visuals/filters/ExposureFilter.hpp"
 #include "visuals/filters/ReinhardFilter.hpp"
-#include "visuals/filters/ClampFilter.hpp"
 #include "visuals/filters/sRGBFilter.hpp"
 #include <cstdint>
 
