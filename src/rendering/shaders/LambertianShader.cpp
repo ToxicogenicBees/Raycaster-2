@@ -49,11 +49,6 @@ namespace toxico {
         }
 
         // Return the net light contribution
-        return Color4{
-            result.r,
-            result.g,
-            result.b,
-            1.0
-        };
+        return Color4(result, 1.0);
     }
 }

@@ -17,11 +17,14 @@ namespace toxico {
     Color4::Color4(fp_type r, fp_type g, fp_type b, fp_type a) noexcept
         : r(r), g(g), b(b), a(a) {}
 
+    Color4::Color4(const Color3& color, fp_type a) noexcept
+        : r(color.r), g(color.g), b(color.b), a(a) {}
+
     Color4::Color4() noexcept
         : r(0.0), g(0.0), b(0.0), a(0.0) {}
 
     Color4 Color4::transparent() noexcept {
-        return Color4();
+        return Color4(0.0, 0.0, 0.0, 0.0);
     }
 
     Color4 Color4::fromRGBA8(uint8_t r, uint8_t g, uint8_t b, uint8_t a) noexcept {
@@ -61,5 +64,9 @@ namespace toxico {
             throw std::invalid_argument("Invalid color channel");
 
         return this->*COLOR_CHANNELS[channel];
+    }
+
+    Color3 Color4::getRGB() const noexcept {
+        return Color3(r, g, b);
     }
 }

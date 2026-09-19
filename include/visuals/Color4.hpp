@@ -7,6 +7,7 @@
 #pragma once
 
 #include "foundation/utility/fp_type.hpp"
+#include "visuals/Color3.hpp"
 #include <type_traits>
 #include <cstdint>
 #include <array>
@@ -14,7 +15,6 @@
 namespace toxico {
     struct Color4 {
         static constexpr uint8_t channels = 4;
-
         fp_type r, g, b, a;
 
         /**
@@ -26,6 +26,14 @@ namespace toxico {
          * @param a Alpha component (0.0 - 1.0)
          */
         Color4(fp_type r, fp_type g, fp_type b, fp_type a) noexcept;
+
+        /**
+         * @brief Constructor.
+         * 
+         * @param color3 The RGB component of this color.
+         * @param a The alpha component of this color (default is 1.0)
+         */
+        Color4(const Color3& color, fp_type a = 1.0) noexcept;
 
         /**
          * @brief Constructor.
@@ -125,6 +133,13 @@ namespace toxico {
         template<typename T>
         requires std::is_arithmetic_v<T>
         Color4 operator/(T scalar) const noexcept;
+
+        /**
+         * @brief Gets the RGB channels of this color.
+         * 
+         * @return The RGB channels of this color.
+         */
+        Color3 getRGB() const noexcept;
     };
 
     /**

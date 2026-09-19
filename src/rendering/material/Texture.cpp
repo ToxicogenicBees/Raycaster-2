@@ -85,11 +85,7 @@ namespace toxico {
         const auto col = wrap_index(static_cast<std::ptrdiff_t>(std::round(x)), image_.size().width);
         const auto row = wrap_index(static_cast<std::ptrdiff_t>(std::round(y)), image_.size().height);
         const auto& pixel = image_.at(row, col);
-        return Color3{
-            pixel.r,
-            pixel.g,
-            pixel.b
-        };
+        return pixel.getRGB();
     }
 
     Color3 Texture::sampleBilinear_(const Vector2& uv) const noexcept {
@@ -113,11 +109,7 @@ namespace toxico {
         // Fetch the four pixels between this sub-pixel
         const auto get_pixel = [this](std::size_t row, std::size_t col) {
             const auto& pixel = image_.at(row, col);
-            return Color3{
-                pixel.r,
-                pixel.g,
-                pixel.b
-            };
+            return pixel.getRGB();
         };
         const Color3 c00 = get_pixel(y0, x0);
         const Color3 c10 = get_pixel(y0, x1);
