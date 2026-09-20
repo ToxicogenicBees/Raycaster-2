@@ -6,16 +6,30 @@
 
 #pragma once
 
-#include "rendering/material/utility/TextureColorSpace.hpp"
-#include "rendering/material/utility/TextureFilterMode.hpp"
+#include "rendering/texture/utility/TextureColorSpace.hpp"
+#include "rendering/texture/utility/TextureFilterMode.hpp"
 #include "foundation/math/Vector.hpp"
 #include "visuals/Color3.hpp"
 #include "visuals/Image.hpp"
-#include <filesystem>
 
 namespace toxico {
     class Texture {
     public:
+        /**
+         * @brief Creates a magenta and black checkered texture.
+         * 
+         * @return A magenta and black textured texture.
+         */
+        static Texture missing();
+
+        /**
+         * @brief Creates a flat texture with a given color.
+         * 
+         * @param color The desired color.
+         * @return A flat texture with the given color.
+         */
+        static Texture flat(const Color3& color);
+
         /**
          * @brief Constructor.
          * 
@@ -23,15 +37,14 @@ namespace toxico {
          * @param space The color space of the provided image.
          * @param mode The filtering mode for this texture.
          */
-        Texture(const std::filesystem::path& image, TextureColorSpace space, TextureFilterMode mode = TextureFilterMode::Nearest);
         Texture(const Image& image, TextureColorSpace space, TextureFilterMode mode = TextureFilterMode::Nearest);
 
         /**
-         * @brief Creates a magenta and black checkered texture.
+         * @brief Constructor.
          * 
-         * @return A magenta and black textured texture.
+         * Creates a flat, black texture.
          */
-        static Texture missing();
+        Texture();
 
         /**
          * @brief Samples this texture at the desired UV position.

@@ -4,12 +4,11 @@
     Declaration of an image-based texture.
 */
 
-#include "rendering/material/utility/Texture.hpp"
+#include "rendering/texture/Texture.hpp"
 #include "visuals/filters/SRGBToLinearFilter.hpp"
-#include "visuals/Color4.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/geometry/Size.hpp"
-#include "io/image/ImageReader.hpp"
+#include "visuals/Color4.hpp"
 #include <iostream>
 #include <cstddef>
 #include <cmath>
@@ -42,31 +41,37 @@ namespace toxico {
         return Texture(result, TextureColorSpace::Linear, TextureFilterMode::Nearest);
     }
 
-    Texture::Texture(const std::filesystem::path& image, TextureColorSpace space, TextureFilterMode mode) {
-        try {
-            ImageReader reader;
-            *this = Texture(reader.read(image), space, mode);
-        }
-        catch(std::exception& e) {
-            std::clog << e.what() << "\n";
-            *this = Texture::missing();
-        }
+    Texture Texture::flat(const Color3& color) {
+        // Create an image holding this color
+        Image image(Size{1, 1});
+        image.at(0, 0) = Color4(color, 1.0);
+
+        // Create a texture with this image
+        return Texture(image, TextureColorSpace::Linear, TextureFilterMode::Nearest);
     }
 
     Texture::Texture(const Image& image, TextureColorSpace space, TextureFilterMode mode)
-        : image_(image),
-          mode_(mode)
+        : mode_(mode)
     {
         if (space == TextureColorSpace::sRGB) {
             SRGBToLinearFilter filter;
-            image_ = filter.apply(image_);
+            image_ = filter.apply(image);
         }
+        else {
+            image_ = image;
+        }
+    }
+
+    Texture::Texture() {
+        *this = Texture::flat(Color3(0, 0, 0));
     }
 
     Color3 Texture::sample(const Vector2& uv) const noexcept {
         switch(mode_) {
         case (TextureFilterMode::Bilinear):
             return sampleBilinear_(uv);
+        case (TextureFilterMode::Nearest):
+            return sampleNearest_(uv);
         default:
             return sampleNearest_(uv);
         }
