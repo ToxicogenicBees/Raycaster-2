@@ -8,8 +8,9 @@
 #include "scene/geometry/PlaneGeometry.hpp"
 #include "scene/light/PointLight.hpp"
 #include "rendering/camera/PerspectiveCamera.hpp"
+#include "rendering/texture/TextureLoader.hpp"
 #include "rendering/shader/PhongShader.hpp"
-#include "rendering/material/FlatMaterial.hpp"
+#include "rendering/material/Material.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/geometry/Size.hpp"
 #include "io/image/ImageWriter.hpp"
@@ -34,21 +35,21 @@ int main() {
     auto plane_geometry = scene.geometries.insert(PlaneGeometry{});
 
     // Create materials
-    auto sphere_material = scene.materials.insert<FlatMaterial>(
-        MaterialSample{
+    auto sphere_material = scene.materials.insert({
+        MaterialProperties{
             .base_color = Color3(1, 0, 0),
             .metallic = 0.1,
             .roughness = 0.2,
             .ior = 2.3,
         }
-    );
-    auto plane_material = scene.materials.insert<FlatMaterial>(
-        MaterialSample{
+    });
+    auto plane_material = scene.materials.insert({
+        MaterialProperties{
             .base_color = Color3(0, 1, 1),
             .roughness = 0.4,
             .ior = 1.5,
         }
-    );
+    });
 
     // Add a floor to the scene
     auto [floor_handle1, floor1] = scene.objects.emplace(plane_material, plane_geometry);

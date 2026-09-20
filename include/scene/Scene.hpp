@@ -11,7 +11,7 @@
 #include "scene/object/utility/ObjectHandle.hpp"
 #include "scene/light/utility/LightHandle.hpp"
 #include "foundation/containers/Registry.hpp"
-#include "rendering/material/interfaces/IMaterial.hpp"
+#include "rendering/material/Material.hpp"
 #include "scene/geometry/interfaces/IGeometry.hpp"
 #include "scene/light/AmbientLight.hpp"
 #include "scene/light/LightBase.hpp"
@@ -22,7 +22,7 @@
 namespace toxico {
     struct Scene {
         Registry<IGeometry> geometries;
-        Registry<IMaterial> materials;
+        Registry<Material> materials;
         Registry<LightBase> lights;
         Registry<Object> objects;
         AmbientLight ambience;

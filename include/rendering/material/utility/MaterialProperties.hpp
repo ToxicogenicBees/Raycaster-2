@@ -1,7 +1,7 @@
 /*
-    MaterialSample.hpp
+    MaterialProperties.hpp
 
-    Declaration of a struct containing sampled material values.
+    Declaration of a struct containing material property values.
 */
 
 #pragma once
@@ -11,9 +11,9 @@
 #include "visuals/Color3.hpp"
 
 namespace toxico {
-    struct MaterialSample {
+    struct MaterialProperties {
         Vector3 tangent_normal = Vector3::zAxis();
-        Color3 base_color = Color3(1, 0, 0);
+        Color3 base_color = Color3(1, 1, 1);
         Color3 emission = Color3(0, 0, 0);
         fp_type metallic = 0.0;
         fp_type roughness = 0.0;

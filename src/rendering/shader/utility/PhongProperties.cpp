@@ -18,7 +18,7 @@ namespace toxico {
         return 2.0 / (r * r) - 2.0;
     }
 
-    PhongProperties::PhongProperties(const MaterialSample& sample) {
+    PhongProperties::PhongProperties(const MaterialProperties& sample) {
         // Calculate material properties
         const fp_type metallic = std::clamp(sample.metallic, fp_type{0}, fp_type{1});
         const fp_type ior = std::max(sample.ior, fp_type{1.0});

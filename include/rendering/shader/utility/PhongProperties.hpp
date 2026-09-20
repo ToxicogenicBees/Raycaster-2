@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "rendering/material/utility/MaterialSample.hpp"
+#include "rendering/material/utility/MaterialProperties.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "visuals/Color3.hpp"
 
@@ -22,7 +22,7 @@ namespace toxico {
          * 
          * @param sample A material sample.
          */
-        PhongProperties(const MaterialSample& sample);
+        PhongProperties(const MaterialProperties& sample);
 
         /**
          * @brief Constructor.

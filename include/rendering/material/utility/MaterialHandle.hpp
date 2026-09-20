@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "rendering/material/interfaces/IMaterial.hpp"
+#include "rendering/material/Material.hpp"
 #include "foundation/containers/Registry.hpp"
 #include <cstdint>
 
 namespace toxico {
-    using MaterialHandle = Registry<IMaterial>::handle_type;
+    using MaterialHandle = Registry<Material>::handle_type;
 }
