@@ -8,7 +8,7 @@
 #include "scene/geometry/PlaneGeometry.hpp"
 #include "scene/light/PointLight.hpp"
 #include "rendering/camera/PerspectiveCamera.hpp"
-#include "rendering/shaders/PhongShader.hpp"
+#include "rendering/shader/PhongShader.hpp"
 #include "rendering/material/FlatMaterial.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/geometry/Size.hpp"

@@ -4,9 +4,9 @@
     Implementation of a Phong shader.
 */
 
-#include "rendering/shaders/PhongShader.hpp"
-#include "rendering/shaders/utility/PhongProperties.hpp"
-#include "rendering/shaders/utility/tracing.hpp"
+#include "rendering/shader/PhongShader.hpp"
+#include "rendering/shader/utility/PhongProperties.hpp"
+#include "rendering/shader/utility/tracing.hpp"
 
 namespace toxico {
     Color4 PhongShader::shade(const Ray3& ray, const Scene& scene, const Color4& background) const noexcept {

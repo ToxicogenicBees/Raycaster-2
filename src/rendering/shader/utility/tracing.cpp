@@ -4,7 +4,7 @@
     Implementation of a set of free functions to help in tracing.
 */
 
-#include "rendering/shaders/utility/tracing.hpp"
+#include "rendering/shader/utility/tracing.hpp"
 #include "foundation/math/Ray.hpp"
 
 namespace toxico::tracing {

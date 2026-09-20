@@ -4,8 +4,8 @@
     Implementation of a Lambertian shader.
 */
 
-#include "rendering/shaders/LambertianShader.hpp"
-#include "rendering/shaders/utility/tracing.hpp"
+#include "rendering/shader/LambertianShader.hpp"
+#include "rendering/shader/utility/tracing.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Ray.hpp"
 #include "visuals/Color3.hpp"

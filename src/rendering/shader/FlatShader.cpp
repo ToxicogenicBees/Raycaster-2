@@ -4,7 +4,7 @@
     Implementation of a flat shader.
 */
 
-#include "rendering/shaders/FlatShader.hpp"
+#include "rendering/shader/FlatShader.hpp"
 
 namespace toxico {
     Color4 FlatShader::shade(const Ray3& ray, const Scene& scene, const Color4& background) const noexcept {

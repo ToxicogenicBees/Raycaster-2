@@ -4,7 +4,7 @@
     Implementation of a set of Phong shader properties.
 */
 
-#include "rendering/shaders/utility/PhongProperties.hpp"
+#include "rendering/shader/utility/PhongProperties.hpp"
 #include <algorithm>
 
 namespace toxico {
