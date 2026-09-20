@@ -7,15 +7,16 @@
 #include "rendering/shader/FlatShader.hpp"
 
 namespace toxico {
-    Color4 FlatShader::shade(const Ray3& ray, const Scene& scene, const Color4& background) const noexcept {
+    Color3 FlatShader::shade(const Ray3& ray, const Scene& scene, const Color3& background) const noexcept {
         // Check if an intersection was found
         const auto result = scene.intersect(ray);
 
         // Intersection found, use object color
         if (result) {
             const auto* material = scene.materials.resolve(result->object.material);
-            const auto color = material->sample(result->uv).base_color;
-            return Color4(color, 1.0);
+            if (!material)
+                return background;
+            return material->sample(result->uv).base_color;
         }
 
         // Intersection not found, use background color

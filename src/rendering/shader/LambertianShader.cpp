@@ -12,7 +12,7 @@
 #include <algorithm>
 
 namespace toxico {
-    Color4 LambertianShader::shade(const Ray3& ray, const Scene& scene, const Color4& background) const noexcept {
+    Color3 LambertianShader::shade(const Ray3& ray, const Scene& scene, const Color3& background) const noexcept {
         // Fetch closest intersection
         const auto interaction = scene.intersect(ray);
         if (!interaction)
@@ -21,10 +21,8 @@ namespace toxico {
         // Fetch object material
         const auto material_handle = interaction->object.material;
         const auto* material = scene.materials.resolve(material_handle);
-        if (!material) {
-            // @TODO: Handle missing material
+        if (!material)
             return background;
-        }
         const auto material_sample = material->sample(interaction->uv);
 
         // Fetch contribution from each light
@@ -43,6 +41,6 @@ namespace toxico {
         }
 
         // Return the net light contribution
-        return Color4(result, 1.0);
+        return result;
     }
 }

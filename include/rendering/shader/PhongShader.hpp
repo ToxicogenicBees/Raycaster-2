@@ -7,7 +7,7 @@
 #pragma once
 
 #include "foundation/math/Ray.hpp"
-#include "visuals/Color4.hpp"
+#include "visuals/Color3.hpp"
 #include "scene/Scene.hpp"
 
 namespace toxico {
@@ -20,6 +20,6 @@ namespace toxico {
          * @param background The desired background color.
          * @return The resulting color this ray's observer would see.
          */
-        Color4 shade(const Ray3& ray, const Scene& scene, const Color4& background) const noexcept;
+        Color3 shade(const Ray3& ray, const Scene& scene, const Color3& background) const noexcept;
     };
 }

@@ -10,7 +10,7 @@
 #include "rendering/camera/CameraBase.hpp"
 #include "rendering/concepts/Shader.hpp"
 #include "foundation/geometry/Size.hpp"
-#include "visuals/Color4.hpp"
+#include "visuals/Color3.hpp"
 #include "visuals/Image.hpp"
 #include "scene/Scene.hpp"
 
@@ -31,7 +31,7 @@ namespace toxico {
          * @return The rendered image.
          */
         template<Shader S>
-        Image render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color4& background);
+        Image render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color3& background);
     };
 }
 

@@ -15,7 +15,7 @@
 #include "foundation/geometry/Size.hpp"
 #include "io/image/ImageWriter.hpp"
 #include "rendering/Renderer.hpp"
-#include "visuals/Color4.hpp"
+#include "visuals/Color3.hpp"
 #include "visuals/Image.hpp"
 #include "scene/Scene.hpp"
 #include <numbers>
@@ -84,7 +84,7 @@ int main() {
         scene, 
         camera,
         PhongShader{},
-        Color4(0, 0, 0, 1)
+        Color3(0, 0, 0)
     );
 
     // Write the image to a file

@@ -13,7 +13,7 @@
 
 namespace toxico {
     template<Shader S>
-    Image Renderer::render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color4& background) {
+    Image Renderer::render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color3& background) {
         // Create an image to be rendered to
         Image image(size);
 
