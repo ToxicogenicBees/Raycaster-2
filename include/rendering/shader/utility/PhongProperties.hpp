@@ -15,7 +15,7 @@ namespace toxico {
         Color3 ambient;
         Color3 diffuse;
         Color3 specular;
-        fp_type shininess = 0.0;
+        fp_type shininess;
 
         /**
          * @brief Constructor.
