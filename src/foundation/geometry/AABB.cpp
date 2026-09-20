@@ -31,7 +31,7 @@ namespace toxico {
     }
 
     bool AABB::intersects(const Ray3& ray, fp_type t_min, fp_type t_max) const noexcept {
-        for (std::size_t axis = 0; axis < 3; ++axis) {
+        for (std::size_t axis = 0; axis < Vector3::degree; ++axis) {
             const fp_type origin = ray.origin[axis];
             const fp_type direction = ray.direction[axis];
 

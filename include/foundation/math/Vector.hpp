@@ -61,6 +61,8 @@ namespace toxico {
         using const_iterator = const T*;
         using iterator = T*;
 
+        static constexpr std::size_t degree = N;
+
         /**
          * @brief Constructor
          */
