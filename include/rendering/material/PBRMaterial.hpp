@@ -8,6 +8,7 @@
 
 #include "rendering/material/interfaces/IMaterial.hpp"
 #include "rendering/material/utility/MaterialSample.hpp"
+#include "rendering/material/utility/TextureFilterMode.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 #include "rendering/material/utility/Texture.hpp"
@@ -30,7 +31,7 @@ namespace toxico {
          * @param sample A material sample used to alter the image's material properties.
          * @param mode The desired texture sampling mode (default is nearest pixel).
          */
-        PBRMaterial(const std::filesystem::path& texture, const std::filesystem::path& normal, const MaterialSample& sample, Texture::FilterMode mode = Texture::FilterMode::Nearest);
+        PBRMaterial(const std::filesystem::path& texture, const std::filesystem::path& normal, const MaterialSample& sample, TextureFilterMode mode = TextureFilterMode::Nearest);
         
         /**
          * @brief Samples the albedo of the material at a UV location.

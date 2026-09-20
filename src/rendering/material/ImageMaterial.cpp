@@ -5,11 +5,12 @@
 */
 
 #include "rendering/material/ImageMaterial.hpp"
+#include "rendering/material/utility/TextureColorSpace.hpp"
 #include <algorithm>
 
 namespace toxico {
-    ImageMaterial::ImageMaterial(const std::filesystem::path& texture, const MaterialSample& sample, Texture::FilterMode mode)
-        : texture_(texture, Texture::ColorSpace::sRGB, mode),
+    ImageMaterial::ImageMaterial(const std::filesystem::path& texture, const MaterialSample& sample, TextureFilterMode mode)
+        : texture_(texture, TextureColorSpace::sRGB, mode),
           sample_(sample)
     {}
     

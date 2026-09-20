@@ -5,12 +5,13 @@
 */
 
 #include "rendering/material/PBRMaterial.hpp"
+#include "rendering/material/utility/TextureColorSpace.hpp"
 #include <algorithm>
 
 namespace toxico {
-    PBRMaterial::PBRMaterial(const std::filesystem::path& texture, const std::filesystem::path& normal, const MaterialSample& sample, Texture::FilterMode mode)
-        : texture_(texture, Texture::ColorSpace::sRGB, mode),
-          normal_(normal, Texture::ColorSpace::Linear, mode),
+    PBRMaterial::PBRMaterial(const std::filesystem::path& texture, const std::filesystem::path& normal, const MaterialSample& sample, TextureFilterMode mode)
+        : texture_(texture, TextureColorSpace::sRGB, mode),
+          normal_(normal, TextureColorSpace::Linear, mode),
           sample_(sample)
     {}
     

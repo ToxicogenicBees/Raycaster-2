@@ -39,10 +39,10 @@ namespace toxico {
             }
         }
 
-        return Texture(result, ColorSpace::Linear, FilterMode::Nearest);
+        return Texture(result, TextureColorSpace::Linear, TextureFilterMode::Nearest);
     }
 
-    Texture::Texture(const std::filesystem::path& image, ColorSpace space, FilterMode mode) {
+    Texture::Texture(const std::filesystem::path& image, TextureColorSpace space, TextureFilterMode mode) {
         try {
             ImageReader reader;
             *this = Texture(reader.read(image), space, mode);
@@ -53,11 +53,11 @@ namespace toxico {
         }
     }
 
-    Texture::Texture(const Image& image, ColorSpace space, FilterMode mode)
+    Texture::Texture(const Image& image, TextureColorSpace space, TextureFilterMode mode)
         : image_(image),
           mode_(mode)
     {
-        if (space == ColorSpace::sRGB) {
+        if (space == TextureColorSpace::sRGB) {
             SRGBToLinearFilter filter;
             image_ = filter.apply(image_);
         }
@@ -65,7 +65,7 @@ namespace toxico {
 
     Color3 Texture::sample(const Vector2& uv) const noexcept {
         switch(mode_) {
-        case (FilterMode::Bilinear):
+        case (TextureFilterMode::Bilinear):
             return sampleBilinear_(uv);
         default:
             return sampleNearest_(uv);
