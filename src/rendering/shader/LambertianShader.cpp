@@ -36,7 +36,7 @@ namespace toxico {
                 continue;
 
             // Fetch the light's diffusive contribution
-            const fp_type n_dot_l = std::max(fp_type{0.0}, light_sample.direction.dot(interaction->shading_normal));
+            const fp_type n_dot_l = std::max(fp_type{0.0}, -light_sample.direction.dot(interaction->shading_normal));
             result += material_sample.base_color * light_sample.color * n_dot_l;
         }
 

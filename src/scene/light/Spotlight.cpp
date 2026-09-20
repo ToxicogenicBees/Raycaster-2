@@ -35,7 +35,7 @@ namespace toxico {
 
     LightSample Spotlight::sample(const Vector3& position) const noexcept {
         // Fetch the distance traveled
-        const auto offset = transform.position() - position;
+        const auto offset = position - transform.position();
         const auto distance = offset.magnitude();
         
         // Fetch the angle between the light's facing direction and the point the light is checking

@@ -12,7 +12,7 @@ namespace toxico {
         : LightBase(properties) {}
 
     LightSample PointLight::sample(const Vector3& position) const noexcept {
-        const auto offset = transform.position() - position;
+        const auto offset = position - transform.position();
         const auto distance = offset.magnitude();
         const fp_type attenuation = 1.0 / properties.attenuation.evaluate(distance);
 

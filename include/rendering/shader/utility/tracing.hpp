@@ -25,9 +25,9 @@ namespace toxico::tracing {
     /**
      * @brief Reflects a vector by a normal vector.
      * 
-     * @param vector The vector being reflected.
-     * @param normal The normal vector being reflected about.
+     * @param v The vector being reflected.
+     * @param n The normal vector being reflected about.
      * @return The reflected vector.
      */
-    Vector3 reflect(const Vector3 vector, const Vector3 normal);
+    Vector3 reflect(const Vector3 v, const Vector3 n);
 }
