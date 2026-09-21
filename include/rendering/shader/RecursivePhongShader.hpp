@@ -27,9 +27,10 @@ namespace toxico {
          * @param scene The scene the ray is traveling through.
          * @param background The desired background color.
          * @param depth The depth of the search
+         * @param throughput The throughput of this trace.
          * @return The resulting color this ray's observer would see.
          */
-        Color3 shade_(const Ray3& ray, const Scene& scene, const Color3& background, uint8_t depth) const noexcept;
+        Color3 shade_(const Ray3& ray, const Scene& scene, const Color3& background, uint8_t depth, const Color3& throughput) const noexcept;
 
     public:
         /**

@@ -14,7 +14,19 @@ namespace {
 }
 
 namespace toxico {
-    Color3 RecursivePhongShader::shade_(const Ray3& ray, const Scene& scene, const Color3& background, uint8_t depth) const noexcept {
+    Color3 RecursivePhongShader::shade_(const Ray3& ray, const Scene& scene, const Color3& background, uint8_t depth, const Color3& throughput) const noexcept {
+        // -------------------------------------------------------------------------
+        // Initial throughput check
+        // -------------------------------------------------------------------------
+
+        // Barely no contribution, terminate ray
+        if (std::max(throughput.r, std::max(throughput.g, throughput.b)) < 1e-4)
+            return Color3::zero();
+
+        // -------------------------------------------------------------------------
+        // Local Phong shading
+        // -------------------------------------------------------------------------
+
         if (depth >= MAX_DEPTH_)
             return background;
 
@@ -26,10 +38,6 @@ namespace toxico {
         if (!material)
             return background;
         const auto material_sample = material->sample(trace->uv);
-
-        // -------------------------------------------------------------------------
-        // Local Phong shading
-        // -------------------------------------------------------------------------
 
         // Fetch properties
         PhongProperties properties(material_sample);
@@ -98,7 +106,7 @@ namespace toxico {
                 shading::reflect(ray.direction, shading_normal).normal()
             };
 
-            reflected_color = shade_(reflected_ray, scene, background, depth + 1);
+            reflected_color = shade_(reflected_ray, scene, background, depth + 1, throughput * reflection_weight);
         }
 
         // -------------------------------------------------------------------------
@@ -125,9 +133,9 @@ namespace toxico {
                     trace->point - EPSILON * geometric_normal,
                     refracted->normal()
                 };
-                transmitted_color = shade_(transmitted_ray, scene, background, depth + 1);
-
                 transmission_weight = Color3(1, 1, 1) * transmitted_energy;
+                
+                transmitted_color = shade_(transmitted_ray, scene, background, depth + 1, throughput * transmission_weight);
             }
             else {
                 // TIR: all dielectric energy is reflected.
@@ -154,6 +162,6 @@ namespace toxico {
     }
 
     Color3 RecursivePhongShader::shade(const Ray3& ray, const Scene& scene, const Color3& background) const noexcept {
-        return shade_(ray, scene, background, 0);
+        return shade_(ray, scene, background, 0, Color3::one());
     }
 }
