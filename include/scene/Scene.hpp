@@ -8,7 +8,7 @@
 
 #include "foundation/containers/Registry.hpp"
 #include "scene/geometry/interfaces/IGeometry.hpp"
-#include "rendering/material/Material.hpp"
+#include "scene/material/Material.hpp"
 #include "scene/light/LightBase.hpp"
 #include "scene/object/Object.hpp"
 #include "scene/light/AmbientLight.hpp"

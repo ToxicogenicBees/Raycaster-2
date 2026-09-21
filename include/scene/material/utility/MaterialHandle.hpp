@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "rendering/material/Material.hpp"
+#include "scene/material/Material.hpp"
 #include "foundation/containers/Registry.hpp"
 #include <cstdint>
 

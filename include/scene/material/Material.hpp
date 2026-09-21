@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "rendering/material/utility/MaterialProperties.hpp"
-#include "rendering/material/utility/MaterialGraphics.hpp"
+#include "scene/material/utility/MaterialProperties.hpp"
+#include "scene/material/utility/MaterialGraphics.hpp"
 #include "foundation/math/Vector.hpp"
 
 namespace toxico {

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "rendering/material/utility/MaterialHandle.hpp"
+#include "scene/material/utility/MaterialHandle.hpp"
 #include "scene/geometry/utility/GeometryHandle.hpp"
 #include "foundation/geometry/Transform.hpp"
 #include "visuals/Color3.hpp"

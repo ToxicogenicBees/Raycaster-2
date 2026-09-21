@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "rendering/material/utility/MaterialProperties.hpp"
+#include "scene/material/utility/MaterialProperties.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "visuals/Color3.hpp"
 

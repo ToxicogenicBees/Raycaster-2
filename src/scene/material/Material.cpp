@@ -4,7 +4,7 @@
     Implementation of an applyable material.
 */
 
-#include "rendering/material/Material.hpp"
+#include "scene/material/Material.hpp"
 
 namespace toxico {
     Material::Material(MaterialGraphics graphics, MaterialProperties base_properties)
