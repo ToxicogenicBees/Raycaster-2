@@ -5,12 +5,11 @@
 */
 
 #include "scene/geometry/SphereGeometry.hpp"
-#include "scene/geometry/PlaneGeometry.hpp"
+#include "scene/geometry/BoxGeometry.hpp"
 #include "scene/light/PointLight.hpp"
 #include "rendering/camera/PerspectiveCamera.hpp"
-#include "rendering/texture/TextureLoader.hpp"
 #include "rendering/shader/PhongShader.hpp"
-#include "rendering/material/Material.hpp"
+#include "scene/material/Material.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/geometry/Size.hpp"
 #include "io/image/ImageWriter.hpp"
@@ -32,7 +31,7 @@ int main() {
 
     // Create geometries
     auto sphere_geometry = scene.geometries.insert(SphereGeometry{});
-    auto plane_geometry = scene.geometries.insert(PlaneGeometry{});
+    auto box_geometry = scene.geometries.insert(BoxGeometry{});
 
     // Create materials
     auto sphere_material = scene.materials.insert({
@@ -43,7 +42,7 @@ int main() {
             .ior = 2.3,
         }
     });
-    auto plane_material = scene.materials.insert({
+    auto box_material = scene.materials.insert({
         MaterialProperties{
             .base_color = Color3(0, 1, 1),
             .roughness = 0.4,
@@ -51,30 +50,10 @@ int main() {
         }
     });
 
-    // Add a floor to the scene
-    auto [floor_handle, floor] = scene.objects.emplace(plane_material, plane_geometry);
-
-    // Add walls to the scene
-    auto [wall_handle1, wall1] = scene.objects.emplace(plane_material, plane_geometry);
-    wall1.transform.translate(2 * Vector3::xAxis());
-    wall1.transform.rotateZ(rads(90));
-
-    auto [wall_handle2, wall2] = scene.objects.emplace(plane_material, plane_geometry);
-    wall2.transform.translate(2 * Vector3::zAxis());
-    wall2.transform.rotateX(rads(-90));
-
-    auto [wall_handle3, wall3] = scene.objects.emplace(plane_material, plane_geometry);
-    wall3.transform.translate(-4 * Vector3::xAxis());
-    wall3.transform.rotateZ(rads(-90));
-
-    auto [wall_handle4, wall4] = scene.objects.emplace(plane_material, plane_geometry);
-    wall4.transform.translate(-4 * Vector3::zAxis());
-    wall4.transform.rotateX(rads(90));
-
-    // Add a ceiling to the scene
-    auto [ceiling_handle, ceiling] = scene.objects.emplace(plane_material, plane_geometry);
-    ceiling.transform.translate(6 * Vector3::yAxis());
-    ceiling.transform.rotateX(rads(180));
+    // Add a room (interior of a box) to the scene
+    auto [box_handle, box] = scene.objects.emplace(box_material, box_geometry);
+    box.transform.translate({-1, 3, -1});
+    box.transform.scale(3);
 
     // Add a sphere to the scene
     auto [sphere_handle, sphere] = scene.objects.emplace(sphere_material, sphere_geometry);
