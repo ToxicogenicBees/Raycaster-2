@@ -107,6 +107,28 @@ namespace toxico {
         void scale(fp_type scale_factor) noexcept;
 
         /**
+         * @brief Sets the position of the transform to the desired value.
+         * 
+         * @param position The desired position.
+         */
+        void setPosition(const Vector3& position);
+
+        /**
+         * @brief Sets the rotation of the transform to the desired value.
+         * 
+         * @param rotation The desired rotation.
+         * @param order The desired rotation order (default is XYZ).
+         */
+        void setRotation(const Vector3& rotation, RotationOrder order = RotationOrder::XYZ);
+
+        /**
+         * @brief Sets the scale of the transform to the desired value.
+         * 
+         * @param scale The desired scale.
+         */
+        void setScale(const Vector3& scale);
+
+        /**
          * @brief Rotates the transform to face a position.
          * 
          * @param target The position to focus the transform on.

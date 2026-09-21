@@ -161,6 +161,21 @@ namespace toxico {
         update_();
     }
 
+    void Transform::setPosition(const Vector3& position) {
+        position_ = position;
+        update_();
+    }
+
+    void Transform::setRotation(const Vector3& rotation, RotationOrder order) {
+        rotation_ = Mat4x4::identity();
+        rotate(rotation, order);
+    }
+
+    void Transform::setScale(const Vector3& scale) {
+        scale_ = scale;
+        update_();
+    }
+
     void Transform::lookAt(const Vector3& target, const Vector3& up) {
         // Get the current position of this transform
         const Vector3 position = toWorldPoint(Vector3::zero());
