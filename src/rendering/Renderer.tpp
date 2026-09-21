@@ -50,7 +50,8 @@ namespace toxico {
         ImageFilterSet filters;
         filters.add<ReinhardFilter>();
         filters.add<LinearToSRGBFilter>();
-
-        return filters.apply(image);
+        filters.apply(image);
+        
+        return image;
     }
 }

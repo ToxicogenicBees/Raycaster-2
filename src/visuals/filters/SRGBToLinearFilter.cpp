@@ -17,20 +17,16 @@ namespace {
 }
 
 namespace toxico {
-    Image SRGBToLinearFilter::apply(const Image& image) const {
-        Image result = image;
-        for (auto& pixel : result) {
+    void SRGBToLinearFilter::apply(Image& image) const {
+        for (auto& pixel : image) {
             // Modify RGB channels only
             for (std::size_t i = 0; i < 3; ++i)
                 pixel[i] = srgbToLinear(pixel[i]);
         }
-        return result;
     }
 
-    std::vector<Image> SRGBToLinearFilter::apply(std::span<const Image> images) const {
-        std::vector<Image> result;
-        for (const auto& image : images)
-            result.push_back(apply(image));
-        return result;
+    void SRGBToLinearFilter::apply(std::span<Image> images) const {
+        for (auto& image : images)
+            apply(image);
     }
 }

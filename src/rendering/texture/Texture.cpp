@@ -51,14 +51,12 @@ namespace toxico {
     }
 
     Texture::Texture(const Image& image, TextureColorSpace space, TextureFilterMode mode)
-        : mode_(mode)
+        : image_(image),
+          mode_(mode)
     {
         if (space == TextureColorSpace::sRGB) {
             SRGBToLinearFilter filter;
-            image_ = filter.apply(image);
-        }
-        else {
-            image_ = image;
+            filter.apply(image_);
         }
     }
 

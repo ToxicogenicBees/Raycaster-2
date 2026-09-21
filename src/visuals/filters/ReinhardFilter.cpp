@@ -9,9 +9,8 @@
 #include <cstdint>
 
 namespace toxico {
-    Image ReinhardFilter::apply(const Image& image) const {
-        Image result = image;
-        for (auto& pixel : result) {
+    void ReinhardFilter::apply(Image& image) const {
+        for (auto& pixel : image) {
             // Apply a Reinhard operator to the RGB channels
             for (std::size_t i = 0; i < 3; ++i) {
                 if (pixel[i] < 0)
@@ -20,13 +19,10 @@ namespace toxico {
                     pixel[i] = pixel[i] / (1.0 + pixel[i]);
             }
         }
-        return result;
     }
 
-    std::vector<Image> ReinhardFilter::apply(std::span<const Image> images) const {
-        std::vector<Image> result;
-        for (const auto& image : images)
-            result.push_back(apply(image));
-        return result;
+    void ReinhardFilter::apply(std::span<Image> images) const {
+        for (auto& image : images)
+            apply(image);
     }
 }

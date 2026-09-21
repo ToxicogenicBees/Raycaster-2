@@ -7,17 +7,13 @@
 #include "visuals/filters/ImageFilterSet.hpp"
 
 namespace toxico {
-    Image ImageFilterSet::apply(const Image& image) const {
-        Image result(image);
+    void ImageFilterSet::apply(Image& image) const {
         for (auto& filter : filters_)
-            result = std::move(filter->apply(result));
-        return result;
+            filter->apply(image);
     }
 
-    std::vector<Image> ImageFilterSet::apply(std::span<const Image> images) const {
-        std::vector<Image> result(images.begin(), images.end());
+    void ImageFilterSet::apply(std::span<Image> images) const {
         for(auto& filter : filters_)
-            result = std::move(filter->apply({result.begin(), result.end()}));
-        return result;
+            filter->apply(images);
     }
 }
