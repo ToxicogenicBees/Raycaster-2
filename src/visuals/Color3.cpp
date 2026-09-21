@@ -20,6 +20,14 @@ namespace toxico {
     Color3::Color3() noexcept
         : r(0.0), g(0.0), b(0.0) {}
 
+    Color3 Color3::zero() noexcept {
+        return Color3(0.0, 0.0, 0.0);
+    }
+
+    Color3 Color3::one() noexcept {
+        return Color3(1.0, 1.0, 1.0);
+    }
+
     Color3 Color3::fromRGB8(uint8_t r, uint8_t g, uint8_t b) noexcept {
         fp_type inv255 = 1.0 / 255.0;
         return Color3{

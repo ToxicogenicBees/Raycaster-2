@@ -30,6 +30,20 @@ namespace toxico {
         Color3() noexcept;
 
         /**
+         * @brief Creates a Color3 with all components being 0.
+         * 
+         * @return A Color3 with all components being 0.
+         */
+        static Color3 zero() noexcept;
+
+        /**
+         * @brief Creates a Color3 with all components being 1.
+         * 
+         * @return A Color3 with all components being 1.
+         */
+        static Color3 one() noexcept;
+
+        /**
          * @brief Creates a Color3 from RGBA8 format.
          * 
          * @param r The red color channel.
