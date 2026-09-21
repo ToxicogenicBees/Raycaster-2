@@ -5,6 +5,7 @@
 */
 
 #include "scene/geometry/SphereGeometry.hpp"
+#include "scene/geometry/utility/TBNSurfaceFrame.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Quadratic.hpp"
 #include "foundation/math/Vector.hpp"
@@ -53,16 +54,18 @@ namespace toxico {
         };
 
         // Calculate tangent + bitangent
-        const Vector3 normal = hit_point.normal();
-        const Vector3 tangent = Vector3{hit_point.z, 0, -hit_point.x}.normal();
-        const Vector3 bitangent = normal.cross(tangent);
+        const auto tangent = Vector3{hit_point.z, 0, -hit_point.x}.normal();
+        const auto normal = hit_point.normal();
+        const TBNSurfaceFrame frame{
+            .tangent = tangent,
+            .bitangent = normal.cross(tangent),
+            .normal = normal
+        };
 
         // Return intersection data
         return GeometryInteraction{
+            .frame = frame,
             .point = hit_point,
-            .normal = normal,
-            .tangent = tangent,
-            .bitangent = bitangent,
             .uv = uv,
             .t = t
         };

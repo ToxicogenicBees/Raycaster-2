@@ -6,15 +6,14 @@
 
 #pragma once
 
+#include "scene/geometry/utility/TBNSurfaceFrame.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 
 namespace toxico {
     struct GeometryInteraction {
+        TBNSurfaceFrame frame;
         Vector3 point;
-        Vector3 normal;
-        Vector3 tangent;
-        Vector3 bitangent;
         Vector2 uv;
         fp_type t;
     };

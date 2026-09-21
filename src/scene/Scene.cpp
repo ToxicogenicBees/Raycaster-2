@@ -34,22 +34,18 @@ namespace toxico {
             return std::nullopt;
 
         // Calculate shading normal
-        Vector3 shading_normal = closest->normal;
+        Vector3 shading_normal = closest->frame.normal;
         const auto* material = materials.resolve(closest_object->material);
         if (material) {
             const auto sample = material->sample(closest->uv);
-            shading_normal = (
-                sample.tangent_normal.x * closest->tangent
-                + sample.tangent_normal.y * closest->bitangent
-                + sample.tangent_normal.z * closest->normal
-            ).normal();
+            shading_normal = closest->frame.toWorld(sample.tangent_normal).normal();
         }
 
         // Intersection found
         return SurfaceInteraction{
             .object = *closest_object,
             .point = closest->point,
-            .geometric_normal = closest->normal,
+            .geometric_normal = closest->frame.normal,
             .shading_normal = shading_normal,
             .uv = closest->uv,
             .t = closest->t

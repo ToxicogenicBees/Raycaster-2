@@ -34,13 +34,13 @@ namespace toxico::intersection {
         const Vector3 offset = world_point - ray.origin;
 
         // Convert local-space intersection to world space
-        const auto normal = transform.toWorldNormal(local_hit->normal).normal();
-        const auto tangent = transform.toWorldVector(local_hit->tangent).normal();
         return GeometryInteraction{
+            .frame{
+                .tangent = transform.toWorldVector(local_hit->frame.tangent).normal(),
+                .bitangent = transform.toWorldVector(local_hit->frame.bitangent).normal(),
+                .normal = transform.toWorldNormal(local_hit->frame.normal).normal(),
+            },
             .point = world_point,
-            .normal = transform.toWorldNormal(local_hit->normal).normal(),
-            .tangent = transform.toWorldVector(local_hit->tangent).normal(),
-            .bitangent = transform.toWorldVector(local_hit->bitangent),
             .uv = local_hit->uv,
             .t = offset.dot(ray.direction) / ray.direction.dot(ray.direction)
         };
