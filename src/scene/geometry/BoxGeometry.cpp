@@ -69,11 +69,14 @@ namespace toxico {
                 return std::nullopt;
         }
 
+        if (near_axis < 0 || far_axis < 0)
+            return std::nullopt;
+
         if (t_far < 0.0)
             return std::nullopt;
 
         // Get collision time and axis
-        const bool inside = t_near < 0.0;
+        const bool inside = t_near < epsilon;
         const fp_type t = inside ? t_far : t_near;
         const int axis = inside ? far_axis : near_axis;
 
