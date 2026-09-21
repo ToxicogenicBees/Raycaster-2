@@ -13,9 +13,9 @@
 
 namespace toxico {
     template<Shader S>
-    Image Renderer::render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color3& background) {
+    Image Renderer::render(const RenderSettings<S>& settings) {
         // Create an image to be rendered to
-        Image image(size);
+        Image image(settings.render_size);
 
         // Helper to render a pixel on screen
         auto render_pixel = [&](std::size_t row, std::size_t col) {
@@ -26,18 +26,18 @@ namespace toxico {
             };
 
             // Generate a ray from the camera through this pixel
-            const auto ray = camera.generateRay(ray_position, size);
+            const auto ray = settings.camera.generateRay(ray_position, settings.render_size);
 
             // Fill the image with the color fetched by the shader through this ray.
-            const auto color = shader.shade(ray, scene, background);
+            const auto color = settings.shader.shade(ray, settings.scene, settings.background);
             image.at(row, col) = color;
         };
 
         // Create a job batch to process each scan line.
         JobBatch render_pixels;
-        for (std::size_t row = 0; row < size.height; ++row) {
-            render_pixels.push([row, size, render_pixel] {
-                for (std::size_t col = 0; col < size.width; ++col)
+        for (std::size_t row = 0; row < settings.render_size.height; ++row) {
+            render_pixels.push([row, &settings, render_pixel] {
+                for (std::size_t col = 0; col < settings.render_size.width; ++col)
                     render_pixel(row, col);
             });
         }

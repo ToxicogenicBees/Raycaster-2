@@ -8,11 +8,12 @@
 #include "scene/geometry/BoxGeometry.hpp"
 #include "scene/light/PointLight.hpp"
 #include "rendering/camera/PerspectiveCamera.hpp"
-#include "rendering/shader/PhongShader.hpp"
+#include "rendering/shader/RecursivePhongShader.hpp"
 #include "scene/material/Material.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/geometry/Size.hpp"
 #include "io/image/ImageWriter.hpp"
+#include "rendering/utility/RenderSettings.hpp"
 #include "rendering/Renderer.hpp"
 #include "visuals/Color3.hpp"
 #include "visuals/Image.hpp"
@@ -72,13 +73,13 @@ int main() {
 
     // Render the image
     Renderer renderer;
-    const auto image = renderer.render(
-        Size{1280, 720},
-        scene, 
-        camera,
-        PhongShader{},
-        Color3(0, 0, 0)
-    );
+    const auto image = renderer.render(RenderSettings{
+        .scene = scene, 
+        .camera = camera,
+        .shader = RecursivePhongShader{},
+        .render_size = Size{1280, 720},
+        .background = Color3(0, 0, 0)
+    });
 
     // Write the image to a file
     ImageWriter writer;

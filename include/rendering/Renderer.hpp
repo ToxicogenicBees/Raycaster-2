@@ -7,12 +7,9 @@
 #pragma once
 
 #include "rendering/scheduling/JobScheduler.hpp"
-#include "rendering/camera/CameraBase.hpp"
+#include "rendering/utility/RenderSettings.hpp"
 #include "rendering/concepts/Shader.hpp"
-#include "foundation/geometry/Size.hpp"
-#include "visuals/Color3.hpp"
 #include "visuals/Image.hpp"
-#include "scene/Scene.hpp"
 
 namespace toxico {
     class Renderer {
@@ -23,15 +20,11 @@ namespace toxico {
         /**
          * @brief Renders a scene.
          * 
-         * @param size The size of the image being rendered.
-         * @param scene The scene being rendered.
-         * @param camera The camera used to view the scene.
-         * @param shader The desired shader.
-         * @param background The desired background color for the image.
+         * @param settings The desired settings for this render.
          * @return The rendered image.
          */
         template<Shader S>
-        Image render(const Size& size, const Scene& scene, const CameraBase& camera, const S& shader, const Color3& background);
+        Image render(const RenderSettings<S>& settings);
     };
 }
 
