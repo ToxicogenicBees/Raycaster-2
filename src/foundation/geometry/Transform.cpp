@@ -161,7 +161,7 @@ namespace toxico {
         update_();
     }
 
-    void Transform::setPosition(const Vector3& position) {
+    void Transform::setPosition(const Vector3& position) noexcept {
         position_ = position;
         update_();
     }
@@ -171,8 +171,13 @@ namespace toxico {
         rotate(rotation, order);
     }
 
-    void Transform::setScale(const Vector3& scale) {
+    void Transform::setScale(const Vector3& scale) noexcept {
         scale_ = scale;
+        update_();
+    }
+
+    void Transform::setScale(fp_type scale) noexcept {
+        scale_ = scale * Vector3::one();
         update_();
     }
 

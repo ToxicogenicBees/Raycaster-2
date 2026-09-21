@@ -98,12 +98,6 @@ namespace toxico {
          * @param scale_factor The desired scaling factor.
          */
         void scale(const Vector3& scale_factor) noexcept;
-
-        /**
-         * @brief Applies a unified scaling factor to the transform.
-         * 
-         * @param scale_factor The desired unified scaling factor.
-         */
         void scale(fp_type scale_factor) noexcept;
 
         /**
@@ -111,7 +105,7 @@ namespace toxico {
          * 
          * @param position The desired position.
          */
-        void setPosition(const Vector3& position);
+        void setPosition(const Vector3& position) noexcept;
 
         /**
          * @brief Sets the rotation of the transform to the desired value.
@@ -126,7 +120,8 @@ namespace toxico {
          * 
          * @param scale The desired scale.
          */
-        void setScale(const Vector3& scale);
+        void setScale(const Vector3& scale) noexcept;
+        void setScale(fp_type scale) noexcept;
 
         /**
          * @brief Rotates the transform to face a position.
