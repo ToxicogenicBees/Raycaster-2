@@ -1,7 +1,7 @@
 /*
-    GeometryInteraction.hpp
+    GeometryTrace.hpp
 
-    Declaration of a struct containing info of the interaction between a geometry and a ray.
+    Declaration of a struct containing info of the intersection between a geometry and a ray.
 */
 
 #pragma once
@@ -11,7 +11,7 @@
 #include "foundation/math/Vector.hpp"
 
 namespace toxico {
-    struct GeometryInteraction {
+    struct GeometryTrace {
         TBNSurfaceFrame frame;
         Vector3 point;
         Vector2 uv;

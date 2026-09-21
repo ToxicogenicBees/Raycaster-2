@@ -29,7 +29,7 @@ namespace toxico {
         bounds_.expand(Vector3::one());
     }
 
-    std::optional<GeometryInteraction> BoxGeometry::intersection(const Ray3& local_ray) const {
+    std::optional<GeometryTrace> BoxGeometry::intersection(const Ray3& local_ray) const {
         constexpr fp_type epsilon = 1e-8;
         constexpr fp_type min = -1.0;
         constexpr fp_type max =  1.0;
@@ -85,8 +85,8 @@ namespace toxico {
         const int face = 2 * axis + (sign < 0);
         const TBNSurfaceFrame& frame = faces[face];
 
-        // Return the interaction
-        return GeometryInteraction{
+        // Return the intersection
+        return GeometryTrace{
             .frame = frame,
             .point = point,
             .uv = Vector2{

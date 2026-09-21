@@ -5,11 +5,12 @@
 */
 
 #include "rendering/shader/FlatShader.hpp"
+#include "tracing/raytrace.hpp"
 
 namespace toxico {
     Color3 FlatShader::shade(const Ray3& ray, const Scene& scene, const Color3& background) const noexcept {
         // Check if an intersection was found
-        const auto result = scene.intersect(ray);
+        const auto result = raytrace::trace(ray, scene);
 
         // Intersection found, use object color
         if (result) {

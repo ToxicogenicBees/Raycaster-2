@@ -16,7 +16,7 @@ namespace toxico {
     SphereGeometry::SphereGeometry() noexcept
         : bounds_(-Vector3::one(), Vector3::one()) {}
 
-    std::optional<GeometryInteraction> SphereGeometry::intersection(const Ray3& local_ray) const {
+    std::optional<GeometryTrace> SphereGeometry::intersection(const Ray3& local_ray) const {
         // Calculate coefficients of the intersection quadratic
         const Vector3 oc = local_ray.origin;
         const fp_type a = local_ray.direction.dot(local_ray.direction);
@@ -63,7 +63,7 @@ namespace toxico {
         };
 
         // Return intersection data
-        return GeometryInteraction{
+        return GeometryTrace{
             .frame = frame,
             .point = hit_point,
             .uv = uv,

@@ -13,7 +13,7 @@
 #include <cmath>
 
 namespace toxico {
-    std::optional<GeometryInteraction> PlaneGeometry::intersection(const Ray3& local_ray) const {
+    std::optional<GeometryTrace> PlaneGeometry::intersection(const Ray3& local_ray) const {
         // https://www.cl.cam.ac.uk/teaching/1999/AGraphHCI/SMAG/node2.html#SECTION00023500000000000000
     
         Transform transform;
@@ -35,7 +35,7 @@ namespace toxico {
 
         // Return the intersection
         const auto point = local_ray.at(t);
-        return GeometryInteraction{
+        return GeometryTrace{
             .frame = frame,
             .point = local_ray.at(t),
             .uv = Vector2(point.x, -point.z),
