@@ -52,15 +52,29 @@ int main() {
     });
 
     // Add a floor to the scene
-    auto [floor_handle1, floor1] = scene.objects.emplace(plane_material, plane_geometry);
+    auto [floor_handle, floor] = scene.objects.emplace(plane_material, plane_geometry);
 
     // Add walls to the scene
+    auto [wall_handle1, wall1] = scene.objects.emplace(plane_material, plane_geometry);
+    wall1.transform.translate(2 * Vector3::xAxis());
+    wall1.transform.rotateZ(rads(90));
+
     auto [wall_handle2, wall2] = scene.objects.emplace(plane_material, plane_geometry);
-    wall2.transform.rotateZ(rads(90));
-    wall2.transform.translate(2 * Vector3::xAxis());
+    wall2.transform.translate(2 * Vector3::zAxis());
+    wall2.transform.rotateX(rads(-90));
+
     auto [wall_handle3, wall3] = scene.objects.emplace(plane_material, plane_geometry);
-    wall3.transform.rotateX(rads(-90));
-    wall3.transform.translate(2 * Vector3::zAxis());
+    wall3.transform.translate(-4 * Vector3::xAxis());
+    wall3.transform.rotateZ(rads(-90));
+
+    auto [wall_handle4, wall4] = scene.objects.emplace(plane_material, plane_geometry);
+    wall4.transform.translate(-4 * Vector3::zAxis());
+    wall4.transform.rotateX(rads(90));
+
+    // Add a ceiling to the scene
+    auto [ceiling_handle, ceiling] = scene.objects.emplace(plane_material, plane_geometry);
+    ceiling.transform.translate(6 * Vector3::yAxis());
+    ceiling.transform.rotateX(rads(180));
 
     // Add a sphere to the scene
     auto [sphere_handle, sphere] = scene.objects.emplace(sphere_material, sphere_geometry);
