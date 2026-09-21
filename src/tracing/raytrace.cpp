@@ -9,7 +9,7 @@
 #include <limits>
 
 namespace toxico::raytrace {
-    std::optional<GeometryTrace> worldIntersection(const IGeometry& geometry, const Transform& transform, const Ray3& ray, fp_type t_min, fp_type t_max) {
+    std::optional<GeometryTrace> worldIntersection(const IGeometry& geometry, const Transform& transform, const Ray3& ray, NumberRange<fp_type> t) {
         // Fetch intersection in local space
         const Ray3 local_ray = transform.toLocal(ray);
         auto local_hit = geometry.intersection(local_ray);
@@ -21,8 +21,8 @@ namespace toxico::raytrace {
         // Validate time constraints
         const Vector3 world_point = transform.toWorldPoint(local_hit->point);
         const Vector3 offset = world_point - ray.origin;
-        const fp_type t = offset.dot(ray.direction) / ray.direction.dot(ray.direction);
-        if (t < t_min || t > t_max)
+        const fp_type t_intersect = offset.dot(ray.direction) / ray.direction.dot(ray.direction);
+        if (t_intersect < t.min() || t_intersect > t.max())
             return std::nullopt;
 
         // Convert local-space intersection to world space
@@ -34,15 +34,15 @@ namespace toxico::raytrace {
             },
             .point = world_point,
             .uv = local_hit->uv,
-            .t = t
+            .t = t_intersect
         };
     }
 
     std::optional<GeometryTrace> worldIntersection(const IGeometry& geometry, const Transform& transform, const Ray3& ray) {
-        return worldIntersection(geometry, transform, ray, fp_type{0.0}, std::numeric_limits<fp_type>::max());
+        return worldIntersection(geometry, transform, ray, {fp_type{0.0}, std::numeric_limits<fp_type>::max()});
     }
 
-    std::optional<SceneTrace> trace(const Ray3& ray, const Scene& scene, fp_type t_min, fp_type t_max) {
+    std::optional<SceneTrace> trace(const Ray3& ray, const Scene& scene, NumberRange<fp_type> t) {
         // Find the closest intersection between the ray and an object in the scene
         fp_type closest_t = std::numeric_limits<fp_type>::max();
         const Object* closest_object = nullptr;
@@ -52,7 +52,7 @@ namespace toxico::raytrace {
             if (!geometry)
                 continue;
 
-            const auto result = raytrace::worldIntersection(*geometry, object.transform, ray, t_min, t_max);
+            const auto result = raytrace::worldIntersection(*geometry, object.transform, ray, t);
             if (result && result->t < closest_t) {
                 closest_object = &object;
                 closest_t = result->t;
@@ -90,6 +90,6 @@ namespace toxico::raytrace {
     }
     
     std::optional<SceneTrace> trace(const Ray3& ray, const Scene& scene) {
-        return trace(ray, scene, fp_type{0.0}, std::numeric_limits<fp_type>::max());
+        return trace(ray, scene, {fp_type{0.0}, std::numeric_limits<fp_type>::max()});
     }
 }
