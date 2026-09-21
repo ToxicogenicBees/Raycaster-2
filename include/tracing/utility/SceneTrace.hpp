@@ -17,6 +17,7 @@ namespace toxico {
         Vector3 geometric_normal;
         Vector3 shading_normal;
         Vector2 uv;
+        fp_type t;
         bool front_face;
     };
 }

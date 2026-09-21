@@ -84,6 +84,7 @@ namespace toxico::raytrace {
             .geometric_normal = geometric_normal,
             .shading_normal = shading_normal,
             .uv = closest->uv,
+            .t = closest->t,
             .front_face = front_face
         };
     }
