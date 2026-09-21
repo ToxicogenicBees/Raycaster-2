@@ -11,9 +11,10 @@
 
 namespace toxico::shading {
     bool castsShadow(const Scene& scene, const LightSample& light_sample, const SceneTrace& trace) {
+        const auto normal = (trace.front_face ? trace.geometric_normal : -trace.geometric_normal);
         constexpr fp_type epsilon = 1e-5;
         const auto to_light = Ray3{
-            trace.point + epsilon * trace.shading_normal,
+            trace.point + epsilon * normal,
             -light_sample.direction
         };
 
