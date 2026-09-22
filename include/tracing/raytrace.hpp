@@ -21,7 +21,7 @@ namespace toxico::raytrace {
      * @param ray The ray intersecting with this geometry, in world-space coordinates.
      * @param geometry The geometry being intersected.
      * @param transform The transformation this geometry has undergone in world space.
-     * @param t The range of time traveled along the ray
+     * @param t The range of time traveled along the ray.
      * @return The world-space intersection with this geometry, or std::nullopt if no intersection occured.
      */
     std::optional<GeometryTrace> worldIntersection(const IGeometry& geometry, const Transform& transform, const Ray3& ray, NumberRange<fp_type> t);
@@ -41,7 +41,7 @@ namespace toxico::raytrace {
      * 
      * @param ray A ray being traced through the scene.
      * @param scene The scene the ray is being traced through.
-     * @param t The range of time traveled along the ray
+     * @param t The range of time traveled along the ray.
      * @return The resulting ray-scene intersection, or std::nullopt if no intersection occured.
      */
     std::optional<SceneTrace> trace(const Ray3& ray, const Scene& scene, NumberRange<fp_type> t);

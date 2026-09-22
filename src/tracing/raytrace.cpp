@@ -10,11 +10,13 @@
 
 namespace toxico::raytrace {
     std::optional<GeometryTrace> worldIntersection(const IGeometry& geometry, const Transform& transform, const Ray3& ray, NumberRange<fp_type> t) {
-        // Fetch intersection in local space
+        // Convert ray to local space
         const Ray3 local_ray = transform.toLocal(ray);
-        auto local_hit = geometry.intersection(local_ray);
 
-        // No local-space intersection -> no world-space intersection
+        // Fetch intersection in local space
+        if (!geometry.bounds().intersects(local_ray))
+            return std::nullopt;
+        auto local_hit = geometry.intersection(local_ray);
         if (!local_hit)
             return std::nullopt;
 
