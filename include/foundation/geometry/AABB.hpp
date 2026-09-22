@@ -7,16 +7,17 @@
 #pragma once
 
 #include "foundation/utility/fp_type.hpp"
+#include "foundation/math/NumberRange.hpp"
 #include "foundation/math/Vector.hpp"
 #include "foundation/math/Ray.hpp"
+#include <optional>
 #include <concepts>
-#include <limits>
 
 namespace toxico {
     class AABB {
     private:
-        Vector3 min_;
-        Vector3 max_;
+        std::optional<Vector3> min_;
+        std::optional<Vector3> max_;
 
     public:
         /**
@@ -31,9 +32,9 @@ namespace toxico {
         /**
          * @brief Constructor.
          * 
-         * Creates a bounding box containing nothing.
+         * Creates a bounding box containing nothing (boundless).
          */
-        AABB() noexcept;
+        AABB() noexcept = default;
 
         /**
          * @brief Adds a point to this bounding box.
@@ -50,32 +51,42 @@ namespace toxico {
         void expand(const AABB& bounds) noexcept;
 
         /**
+         * @brief Gets if a ray collides with this AABB over a range of the ray's lifetime.
+         * 
+         * @param ray The ray being tested against this AABB.
+         * @param t The range of time traveled along the ray.
+         * @return The intersection point of the collision, or std::nullopt if no collision occured.
+         */
+        bool intersects(const Ray3& ray, NumberRange<fp_type> t) const noexcept;
+
+        /**
          * @brief Gets if a ray collides with this AABB.
          * 
          * @param ray The ray being tested against this AABB.
-         * @param t_min The minimum "time" traveled along the ray.
-         * @param t_max The maximum "time" traveled along the ray.
          * @return The intersection point of the collision, or std::nullopt if no collision occured.
          */
-        bool intersects(
-            const Ray3& ray,
-            fp_type t_min = std::numeric_limits<fp_type>::min(),
-            fp_type t_max = std::numeric_limits<fp_type>::max()
-        ) const noexcept;
+        bool intersects(const Ray3& ray) const noexcept;
 
         /**
          * @brief Gets the lower bound for this AABB.
          * 
          * @return The lower bound.
          */
-        const Vector3& lowerBound() const noexcept;
+        Vector3 lowerBound() const noexcept;
 
         /**
          * @brief Gets the upper bound for this AABB.
          * 
          * @return The upper bound.
          */
-        const Vector3& upperBound() const noexcept;
+        Vector3 upperBound() const noexcept;
+
+        /**
+         * @brief Gets if the AABB is boundless.
+         * 
+         * @return If the AABB is boundless.
+         */
+        bool boundless() const noexcept;
     };
 }
 
